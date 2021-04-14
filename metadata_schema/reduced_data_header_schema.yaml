@@ -1,0 +1,148 @@
+definitions:
+  Creator:
+    properties:
+      affiliation:
+        type: string
+      name:
+        type: string
+      system:
+        type: string
+      time:
+        description: timestamp string, formatted as ISO 8601 datetime
+        format: date-time
+        type: string
+    required:
+    - name
+    - affiliation
+    - time
+    - system
+    title: Creator
+    type: object
+  DataSource:
+    properties:
+      experiment:
+        $ref: '#/definitions/Experiment'
+      experimentDate:
+        type: string
+      experimentID:
+        type: string
+      facility:
+        type: string
+      measurement:
+        $ref: '#/definitions/Measurement'
+      owner:
+        type: string
+      title:
+        type: string
+    required:
+    - owner
+    - facility
+    - experimentID
+    - experimentDate
+    - title
+    - experiment
+    - measurement
+    title: DataSource
+    type: object
+  Experiment:
+    properties:
+      instrument:
+        type: string
+      probe:
+        enum:
+        - neutron
+        - xray
+        type: string
+      sample:
+        $ref: '#/definitions/Sample'
+    required:
+    - instrument
+    - probe
+    - sample
+    title: Experiment
+    type: object
+  Measurement:
+    properties:
+      omega:
+        anyOf:
+        - $ref: '#/definitions/Value'
+        - $ref: '#/definitions/ValueRange'
+        description: probe angle of incidence
+      polarisation:
+        $ref: '#/definitions/Polarisation'
+      scheme:
+        type: string
+      wavelength:
+        anyOf:
+        - $ref: '#/definitions/Value'
+        - $ref: '#/definitions/ValueRange'
+    required:
+    - scheme
+    - omega
+    - wavelength
+    title: Measurement
+    type: object
+  Polarisation:
+    description: 'The first symbol indicates the magnetisation direction of the incident
+      beam.
+
+      An optional second symbol indicates the direction of the scattered beam, if
+      a spin analyser is present.'
+    enum:
+    - +
+    - '-'
+    - --
+    - -+
+    - +-
+    - ++
+    title: Polarisation
+    type: string
+  Sample:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    title: Sample
+    type: object
+  Value:
+    properties:
+      magnitude:
+        anyOf:
+        - type: number
+        - items:
+            type: number
+          type: array
+      unit:
+        description: SI unit string
+        type: string
+    required:
+    - magnitude
+    title: Value
+    type: object
+  ValueRange:
+    properties:
+      max:
+        type: number
+      min:
+        type: number
+      steps:
+        type: integer
+      unit:
+        description: SI unit string
+        type: string
+    required:
+    - min
+    - max
+    title: ValueRange
+    type: object
+properties:
+  creator:
+    $ref: '#/definitions/Creator'
+  data_source:
+    $ref: '#/definitions/DataSource'
+required:
+- creator
+- data_source
+title: ORSOHeader
+type: object
