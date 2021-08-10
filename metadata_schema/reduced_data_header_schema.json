@@ -7,11 +7,24 @@
     },
     "data_source": {
       "$ref": "#/definitions/DataSource"
+    },
+    "reduction": {
+      "$ref": "#/definitions/Reduction"
+    },
+    "columns": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/column"
+      }
+    },
+    "data_set": {
+      "type": "string"
     }
   },
   "required": [
     "creator",
-    "data_source"
+    "data_source",
+    "columns"
   ],
   "definitions": {
     "Creator": {
@@ -96,7 +109,7 @@
         "probe": {
           "enum": [
             "neutrons",
-            "xray"
+            "x-rays"
           ],
           "type": "string"
         }
@@ -170,6 +183,50 @@
       ],
       "type": "string"
     },
+    "data_file": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "file",
+        "created"
+      ]
+    },
+    "column": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string",
+          "enum": [
+            "1/angstrom",
+            "1/nm"
+          ]
+        },
+        "dimension": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "dimension"
+      ]
+    },
+    "data_files": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/data_file"
+      }
+    },
     "instrument_settings": {
       "title": "instrument_settings",
       "type": "object",
@@ -217,11 +274,31 @@
         },
         "instrument_settings": {
           "$ref": "#/definitions/instrument_settings"
+        },
+        "data_files": {
+          "$ref": "#/definitions/data_files"
         }
       },
       "required": [
         "scheme",
-        "instrument_settings"
+        "instrument_settings",
+        "data_files"
+      ]
+    },
+    "Reduction": {
+      "title": "Reduction",
+      "type": "object",
+      "properties": {
+        "software": {
+          "type": "string"
+        },
+        "call": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "software",
+        "call"
       ]
     },
     "DataSource": {
