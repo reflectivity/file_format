@@ -3,9 +3,9 @@ definitions:
     properties:
       affiliation:
         type: string
-      name:
+      computer:
         type: string
-      system:
+      name:
         type: string
       time:
         description: timestamp string, formatted as ISO 8601 datetime
@@ -15,71 +15,68 @@ definitions:
     - name
     - affiliation
     - time
-    - system
+    - computer
     title: Creator
     type: object
   DataSource:
     properties:
       experiment:
         $ref: '#/definitions/Experiment'
-      experimentDate:
-        type: string
-      experimentID:
-        type: string
-      facility:
-        type: string
       measurement:
         $ref: '#/definitions/Measurement'
       owner:
-        type: string
-      title:
-        type: string
+        $ref: '#/definitions/owner'
+      sample:
+        $ref: '#/definitions/Sample'
     required:
     - owner
-    - facility
-    - experimentID
-    - experimentDate
-    - title
     - experiment
+    - sample
     - measurement
     title: DataSource
     type: object
   Experiment:
     properties:
+      ID:
+        type: string
+      date:
+        description: timestamp string, formatted as ISO 8601 datetime
+        format: date-time
+        type: string
+      facility:
+        type: string
       instrument:
         type: string
       probe:
         enum:
-        - neutron
-        - xray
+        - neutrons
+        - x-rays
         type: string
-      sample:
-        $ref: '#/definitions/Sample'
+      title:
+        type: string
     required:
     - instrument
     - probe
-    - sample
     title: Experiment
     type: object
   Measurement:
     properties:
-      omega:
-        anyOf:
-        - $ref: '#/definitions/Value'
-        - $ref: '#/definitions/ValueRange'
-        description: probe angle of incidence
-      polarisation:
-        $ref: '#/definitions/Polarisation'
+      data_files:
+        items:
+          $ref: '#/definitions/data_file'
+        type: array
+      instrument_settings:
+        $ref: '#/definitions/instrument_settings'
       scheme:
+        enum:
+        - angle- and energy-dispersive
+        - angle-dispersive
+        - energy-dispersive
         type: string
-      wavelength:
-        anyOf:
-        - $ref: '#/definitions/Value'
-        - $ref: '#/definitions/ValueRange'
     required:
     - scheme
-    - omega
-    - wavelength
+    - instrument_settings
+    - data_files
     title: Measurement
     type: object
   Polarisation:
@@ -97,6 +94,17 @@ definitions:
     - ++
     title: Polarisation
     type: string
+  Reduction:
+    properties:
+      call:
+        type: string
+      software:
+        type: string
+    required:
+    - software
+    - call
+    title: Reduction
+    type: object
   Sample:
     properties:
       name:
@@ -118,6 +126,7 @@ definitions:
         type: string
     required:
     - magnitude
+    - unit
     title: Value
     type: object
   ValueRange:
@@ -134,15 +143,85 @@ definitions:
     required:
     - min
     - max
+    - unit
     title: ValueRange
     type: object
+  column:
+    description: Information on a data column.
+    properties:
+      dimension:
+        type: string
+      name:
+        description: The name of the column
+        type: string
+      unit:
+        description: SI unit string
+        enum:
+        - 1/angstrom
+        - 1/nm
+        type: string
+    required:
+    - name
+    - dimension
+    title: column
+    type: object
+  data_file:
+    properties:
+      created:
+        format: date-time
+        type: string
+      file:
+        type: string
+    required:
+    - file
+    - created
+    title: data_file
+    type: object
+  instrument_settings:
+    properties:
+      incident_angle:
+        anyOf:
+        - $ref: '#/definitions/Value'
+        - $ref: '#/definitions/ValueRange'
+      polarisation:
+        $ref: '#/definitions/Polarisation'
+      wavelength:
+        anyOf:
+        - $ref: '#/definitions/Value'
+        - $ref: '#/definitions/ValueRange'
+    required:
+    - incident_angle
+    - wavelength
+    title: instrument_settings
+    type: object
+  owner:
+    properties:
+      affiliation:
+        type: string
+      contact:
+        type: string
+      name:
+        type: string
+    required:
+    - name
+    - affiliation
+    - contact
+    title: owner
+    type: object
 properties:
+  columns:
+    items:
+      $ref: '#/definitions/column'
+    type: array
   creator:
     $ref: '#/definitions/Creator'
   data_source:
     $ref: '#/definitions/DataSource'
+  reduction:
+    $ref: '#/definitions/Reduction'
 required:
 - creator
 - data_source
+- columns
 title: ORSOHeader
 type: object

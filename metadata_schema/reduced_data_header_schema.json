@@ -8,17 +8,14 @@
     "data_source": {
       "$ref": "#/definitions/DataSource"
     },
-    "reduction": {
-      "$ref": "#/definitions/Reduction"
-    },
     "columns": {
       "type": "array",
       "items": {
         "$ref": "#/definitions/column"
       }
     },
-    "data_set": {
-      "type": "string"
+    "reduction": {
+      "$ref": "#/definitions/Reduction"
     }
   },
   "required": [
@@ -53,18 +50,6 @@
         "computer"
       ]
     },
-    "Sample": {
-      "title": "Sample",
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "name"
-      ]
-    },
     "owner": {
       "title": "owner",
       "type": "object",
@@ -89,13 +74,20 @@
       "title": "Experiment",
       "type": "object",
       "properties": {
+        "instrument": {
+          "type": "string"
+        },
+        "probe": {
+          "enum": [
+            "neutrons",
+            "x-rays"
+          ],
+          "type": "string"
+        },
         "facility": {
           "type": "string"
         },
         "ID": {
-          "type": "string"
-        },
-        "instrument": {
           "type": "string"
         },
         "date": {
@@ -105,18 +97,23 @@
         },
         "title": {
           "type": "string"
-        },
-        "probe": {
-          "enum": [
-            "neutrons",
-            "x-rays"
-          ],
-          "type": "string"
         }
       },
       "required": [
         "instrument",
         "probe"
+      ]
+    },
+    "Sample": {
+      "title": "Sample",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
       ]
     },
     "Value": {
@@ -142,8 +139,8 @@
         }
       },
       "required": [
-        "unit",
-        "magnitude"
+        "magnitude",
+        "unit"
       ]
     },
     "ValueRange": {
@@ -156,18 +153,18 @@
         "max": {
           "type": "number"
         },
-        "steps": {
-          "type": "integer"
-        },
         "unit": {
           "description": "SI unit string",
           "type": "string"
+        },
+        "steps": {
+          "type": "integer"
         }
       },
       "required": [
-        "unit",
         "min",
-        "max"
+        "max",
+        "unit"
       ]
     },
     "Polarisation": {
@@ -183,56 +180,11 @@
       ],
       "type": "string"
     },
-    "data_file": {
-      "type": "object",
-      "properties": {
-        "file": {
-          "type": "string"
-        },
-        "created": {
-          "type": "string",
-          "format": "date-time"
-        }
-      },
-      "required": [
-        "file",
-        "created"
-      ]
-    },
-    "column": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "unit": {
-          "type": "string",
-          "enum": [
-            "1/angstrom",
-            "1/nm"
-          ]
-        },
-        "dimension": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "name",
-        "dimension"
-      ]
-    },
-    "data_files": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/data_file"
-      }
-    },
     "instrument_settings": {
       "title": "instrument_settings",
       "type": "object",
       "properties": {
         "incident_angle": {
-          "description": "probe angle of incidence",
           "anyOf": [
             {
               "$ref": "#/definitions/Value"
@@ -261,6 +213,23 @@
         "wavelength"
       ]
     },
+    "data_file": {
+      "title": "data_file",
+      "type": "object",
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "file",
+        "created"
+      ]
+    },
     "Measurement": {
       "title": "Measurement",
       "type": "object",
@@ -270,35 +239,23 @@
             "angle- and energy-dispersive",
             "angle-dispersive",
             "energy-dispersive"
-          ]
+          ],
+          "type": "string"
         },
         "instrument_settings": {
           "$ref": "#/definitions/instrument_settings"
         },
         "data_files": {
-          "$ref": "#/definitions/data_files"
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/data_file"
+          }
         }
       },
       "required": [
         "scheme",
         "instrument_settings",
         "data_files"
-      ]
-    },
-    "Reduction": {
-      "title": "Reduction",
-      "type": "object",
-      "properties": {
-        "software": {
-          "type": "string"
-        },
-        "call": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "software",
-        "call"
       ]
     },
     "DataSource": {
@@ -323,6 +280,48 @@
         "experiment",
         "sample",
         "measurement"
+      ]
+    },
+    "column": {
+      "title": "column",
+      "description": "Information on a data column.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The name of the column",
+          "type": "string"
+        },
+        "dimension": {
+          "type": "string"
+        },
+        "unit": {
+          "description": "SI unit string",
+          "enum": [
+            "1/angstrom",
+            "1/nm"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "dimension"
+      ]
+    },
+    "Reduction": {
+      "title": "Reduction",
+      "type": "object",
+      "properties": {
+        "software": {
+          "type": "string"
+        },
+        "call": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "software",
+        "call"
       ]
     }
   }
