@@ -160,7 +160,7 @@ together with details !!!
     #     experiment:  
     #         title:         proposal or project title
     #         instrument:
-    #         date:          yyyy-mm-ddThh:mm:ss
+    #         date:          yyyy-mm-dd
     #         probe:         neutrons or x-rays
     #         facility:
     #         proposalID:    proposal ID
