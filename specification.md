@@ -156,7 +156,7 @@ together with details !!!
     #         name:          Main proposer at large scale facility or experimentator at
                              lab source
     #         affiliation:     
-    #         email:         optional  
+    #         contact:         optional  
     #     experiment:  
     #         title:         proposal or project title
     #         instrument:
@@ -273,7 +273,7 @@ She/he is the one responsible for the content.
     #      creator:         
     #          name:         
     #          affiliation:   
-    #          email:       optional
+    #          contact:       optional
 
 Optional, but recommended is a list of corrections performed in free text.
 This helps the user to set the respective parameters for the data analysis.
