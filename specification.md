@@ -1,33 +1,29 @@
 ---
 layout: page  
-title: "ORSO - file formats - draft and rules for the text reflectivity file"  
+title: "ORSO - file formats - specifications for the text reflectivity file"  
 author: "Jochen Stahn"  
 ---
 
-This document is based on discussions at various ORSO workshops and meetings. The main
-contributors are: 
-Andrew Caruana, 
+This document contains the specifications and some examples for the text representation of the orso reflectivity file. 
+It is the basis for the development of python modules to read and write these files.
+
+The main contributors are: 
 Andrew McCluskey,
 Andrew Nelson,
 Artur Glavic,
 Brian Maranville,
-Bridget Murphy,
-Maximilian Skoda, 
-Joachim Wuttke,
-Jochen Stahn,
-Jos Cooper
+Maximilian Skoda
 and
-Tim Snow.
+Jochen Stahn.
 
-The rules and examples given below are still under discussion and the header entries
-listed are not exhaustive. Comments and contributions are welcome and should be 
+Comments and contributions are welcome and should be 
 communicated to <Jochen.Stahn@psi.ch>.
 
-last modified: 2021-08-30
+last modified: 2021-09-25
 
 ---
 
-## some specifications
+## general specifications
 
 ### file extension
 
@@ -48,18 +44,21 @@ E.g. `polarization` rather than `polarisation`.
 
 ### encoding
 
-The text representation allows for ASCII characters following the !!! encoding. 
-
-For the keywords only !!! encoding is allowed. 
+The text representation allows for UNICODE characters. 
+For the keywords only ASCII Basic Latin encoding is allowed. 
 
 
 ### date and time format
 
-ISO8601 format for date and time: yyyy-mm-ddThh:mm:ss.
+For time stamps we use the
+ISO8601 format for **date and time**: 'yyyy-mm-ddThh:mm:ss'.
 This is local time.
 Do not use UTC (hence no suffix Z).
 If the time zone shall be specified (e.g. for disambiguation of summer/winter time),
 then append the UTC time offset in the form "+09:30".
+
+If just the date is of interest, only the **date** part of the same standard is used:
+'yyyy-mm-dd'.
 
 
 ### units
@@ -107,9 +106,9 @@ hash means *header* and the second *non-YAML entry*.
 The header may contain more sections than presented below - and also the sections may
 contain user-defined `key: <value>` pairs on all levels. These of course should not
 interfere with defined content, and the rules for units and formats should be applied as
-stated here.
+stated above.
 
-The header follows a hierarchical structure and is formatted according to YAML (se below) 
+The header follows a hierarchical structure and is formatted according to YAML (see below) 
 or JSON rules. In addition, each line of the header starts with a hash and a space `# `
 (wrapped YAML), which is the default header marker in Python (and other languages).
 
@@ -121,7 +120,7 @@ The first line contains information about
 - the general content;
 - the ORSO file format version (and level of strictness) used;
 - the encoding;
-- a link to us.
+- a link to orso.
 
 Since it is not part of the YAML hierarchy, a second hash is needed.
 
@@ -147,34 +146,36 @@ mandatory
 This section contains information about the origin and ownership of the raw data, 
 together with details !!!
 
+All entries marked with an asterisk `*` are optional.
+
     # data_source:           This information should be available from the raw data 
                              file. If not, one has to find ways to provide it.  
 
     #     owner:             This refers to the actual owner of the data set, i.e.
                              the main proposer or the person doing the measurement
                              on a lab reflectometer
-    #         name:          Main proposer at large scale facility or experimentator at
-                             lab source
+    #         name:          
     #         affiliation:     
-    #         contact:         optional  
+    #         contact:       * 
     #     experiment:  
-    #         title:         proposal or project title
-    #         instrument:
-    #         start_date:          yyyy-mm-dd
+    #         title:         * proposal or project title
+    #         instrument:    
+    #         start_date:    yyyy-mm-dd
     #         probe:         neutrons or x-rays
-    #         facility:
-    #         proposalID:    proposal ID
-    #         doi:
+    #         facility:      
+    #         proposalID:    *
+    #         doi:           * might be provided by the facility
     #     sample:  
-    #         name:          mandatory, string
-    #         type:          best effort, solid/liquid, liquid/solid, gas/liquid, liquid/liquid, solid/gas, gas/solid 
-    #         composition:   optional 
-                             free text notes on the nominal composition of the sample  
-                             e.g. Si | SiO2 (20 A) | Fe (200 A) | air (beam side)
-    #         description:   optional, free text
-    #         environment:   optional, free text, name of the sample environment device(s)
+    #         name:          string identifying the individual sample or the subject and state being measured
+    #         type:          * one of solid/liquid, liquid/solid, gas/liquid, liquid/liquid, solid/gas, gas/solid 
+    #         composition:   * free text notes on the nominal composition of the sample  
+                               e.g. Si | SiO2 (20 A) | Fe (200 A) | air (beam side)
+                               this line/section might contain information to be understood by analysis software
+    #         description:   * free text, further details of the sample, e.g. size
+    #         environment:   * free text, name of the sample environment device(s)
 
-The following list of sample parameters is incomplete and expandable
+The following list of sample parameters is incomplete and expandable.
+All these entries are optional.
 
     #         temperature:
     #             unit:
@@ -199,11 +200,11 @@ In case there are several temperatures:
     #             unit:
     #             value:
     #             direction: 
-    #         electric_field:
-    #             unit:
-    #             value:
+    #         electric_potential:
+    #             unit:      V
+    #             value:    
     #         electric_current:
-    #             unit:
+    #             unit:      A
     #             value:
     #         electric_ac_field: 
     #             amplitude:
@@ -212,13 +213,15 @@ In case there are several temperatures:
     #             frequency: 
     #                 unit:
     #                 value:
+    
+and so on for `pressure`, `surface_pressure`, `pH`, ....
 
 
-    #    measurement: mandatory 
-    #         scheme:  optional, best practice
-                       angle-dispersive / energy-dispersive / angle- and energy-dispersive 
+
+    #    measurement: 
+    #         scheme:               * one of angle-dispersive / energy-dispersive / angle- and energy-dispersive 
     #         instrument_settings:  
-    #             configuration: half / full polarized | liquid_surface | ....   free text
+    #             configuration:    * half / full polarized | liquid_surface | ....   free text
     #             incident_angle:  
     #                 unit:        
     #                 value:
@@ -229,14 +232,11 @@ In case there are several temperatures:
     #                 value:
     #                 min: 
     #                 max: 
-    #             polarization: 
-
-For neutrons one of `unpolarized / p / m / pp / pm / mp / mm  / vector`
-
-For x-rays one of `tba`   
+    #             polarization:    for neutrons one of  unpolarized / p / m / pp / pm / mp / mm  / vector
+                                   for x-rays one of ...  
 
     #         data_files:  
-    #             - file:       mandatory, free text (file name or identifier doi)
+    #             - file:       free text (file name or identifier doi)
     #               timestamp:  yyyy-mm-ddThh:mm:ss
     #             - file:       
     #               timestamp:  
@@ -259,12 +259,12 @@ or by referring to a Nexus representation, a notebook or a log file.
     # reduction:  
     #      software:
     #          name:         name of the reduction software
-    #          version:      its version 
-    #          platform:     operating system
-    #      computer:         optional, computer name
-    #      call:             if applicable, command line call or similar               best practice
-    #      script:           path to e.g. notebook
-    #      binary:           path to full information file
+    #          version:      
+    #          platform:     * operating system
+    #      computer:         * computer name
+    #      call:             * if applicable, command line call or similar 
+    #      script:           * path to e.g. notebook
+    #      binary:           * path to full information file
     #      timestamp:        date and time of file creation
 
 The following subsection identifies the person or routine who created this file.
