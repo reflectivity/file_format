@@ -232,12 +232,12 @@ and so on for `pressure`, `surface_pressure`, `pH`, ....
     #                 value:
     #                 min: 
     #                 max: 
-    #             polarization:    for neutrons one of  unpolarized / p / m / pp / pm / mp / mm  / vector
-                                   for x-rays one of ...  
+    #             polarization:     for neutrons one of  unpolarized / p / m / pp / pm / mp / mm  / vector
+                                    for x-rays one of ...  
 
     #         data_files:  
-    #             - file:       free text (file name or identifier doi)
-    #               timestamp:  yyyy-mm-ddThh:mm:ss
+    #             - file:           free text (file name or identifier doi)
+    #               timestamp:      yyyy-mm-ddThh:mm:ss
     #             - file:       
     #               timestamp:  
     #         references:  
@@ -270,10 +270,10 @@ or by referring to a Nexus representation, a notebook or a log file.
 The following subsection identifies the person or routine who created this file.
 She/he is the one responsible for the content.
 
-    #      creator:         
+    #      creator:           
     #          name:         
     #          affiliation:   
-    #          contact:       optional
+    #          contact:       *
 
 Optional, but recommended is a list of corrections performed in free text.
 This helps the user to set the respective parameters for the data analysis.
@@ -285,7 +285,7 @@ This part might be expanded by defined entries, which are understood by
 data analysis software.
 
     #      corrections:          free text to inform user
-    #         - footprint doi
+    #         - footprint
     #         - background
     #         - polarisation
     #         - ballistic correction
@@ -305,8 +305,8 @@ the error of *R* / *I* and the resolution of *Qz* this leads to the defined lead
 columns of the data set. I.e.
 
 1. *Qz* with units
-2. *I* with units (if applicable)
-3. *sigma* of *I* with units (if applicable)
+2. *I* or *R* with units (if applicable)
+3. *sigma* of *I* or *R* with units (if applicable)
 4. *sigma* of resolution of *Qz* with units 
 
 where for columns 3 and 4, *sigma* is the standard deviation of a Gaussian
@@ -349,7 +349,7 @@ meaning that the third and fourth columns must be specified.
 If there are multiple data sets in one file, the first one can be given an identifier
 with the optional line:
 
-    # data_set: <identifier>
+    # data_set:   * <identifier>
 
 Also optionally there might be a short-notation column description preceded with
 a hash, since this line is outside the YAML structure
@@ -368,7 +368,7 @@ in the *column description* section.
 - There is no leading space.
 - Separators are spaces, tabs are not allowed.
 - Whilst it's strongly advised to provide values for the third and fourth columns, if
-these are unknown then use 'nan' for the values.
+these are unknown then use `nan` for the values.
 
 - It is recommended to use the same format for all columns,
   preferably `'%-22.16e'`.
@@ -393,7 +393,7 @@ The mandatory separator between data sets is the string
 
     # data_set: <identifier>
 
-where <identifier> is either an unique name or a number. The default numbering of data sets starts with 0, the first additional one thus gets number 1 and so on.
+where `<identifier>` is either an unique name or a number. The default numbering of data sets starts with 0, the first additional one thus gets number 1 and so on.
 
 ### overwrite meta data
 
@@ -409,8 +409,8 @@ For the case of additional input data with different spin state this might look 
     #     reduction:
     #         input_files:
     #             data_files:
-    #                 - file      : amor2020n001930.hdf
-    #                   timestamp : 2020-02-03T15:27:45
+    #                 - file:      amor2020n001930.hdf
+    #                   timestamp: 2020-02-03T15:27:45
 
 
 ### repetition of short-version column description
