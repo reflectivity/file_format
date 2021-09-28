@@ -104,18 +104,13 @@ sample:
 ```
 ---
 
-
 ## the header
 
-The header may contain more sections than presented below - and also the sections may
-contain user-defined `key: <value>` pairs on all levels. These of course should not
-interfere with defined content, and the rules for units and formats should be applied as
-stated above.
+The header may contain more sections than presented below - and also the sections may contain user-defined `key: <value>` pairs on all levels. 
+These of course should not interfere with defined content, and the rules for units and formats should be applied as stated above.
 
-The header follows a hierarchical structure and is formatted according to YAML (see below) 
-or JSON rules. In addition, each line of the header starts with a hash and a space `# `
-(wrapped YAML), which is the default header marker in Python (and other languages).
-
+The header follows a hierarchical structure and is formatted according to YAML (see below) or JSON rules. 
+In addition, each line of the header starts with a hash and a space `# ` (wrapped YAML), which is the default header marker in Python (and other languages).
 
 ### first line
 
@@ -128,130 +123,140 @@ The first line contains information about
 
 Since it is not part of the YAML hierarchy, a second hash is needed.
 
-    # # ORSO reflectivity data file | 0.1 standard | YAML encoding | https://www.reflectometry.org/`  
+```
+# # ORSO reflectivity data file | 0.1 standard | YAML encoding | https://www.reflectometry.org/`  
+```
 
 ### second line
 
-optional, recommended
+optional, **recommended**
 
 This (comment) line should help the user to identify the content based on a few key words.
 It is free format and no further rules apply.
 
-    # # <title> | <date> | <sample name> | <what>
-    
-e.g.
+```
+# # <title> | <date> | <sample name> | <what>
+```
 
-    # # Interdiffusion in Fe | 2020-12-24 | sample fe-457-2 | R(q_z)
+e.g.
+```
+# # Interdiffusion in Fe | 2020-12-24 | sample fe-457-2 | R(q_z)
+```
 
 ### data source
 
-mandatory
+**mandatory**
 
-This section contains information about the origin and ownership of the raw data, 
-together with details !!!
+This section contains information about the origin and ownership of the raw data, together with details!!!
 
 All entries marked with an asterisk `*` are optional.
 
-    # data_source:           This information should be available from the raw data 
-                             file. If not, one has to find ways to provide it.  
+```
+# data_source:           This information should be available from the raw data 
+                         file. If not, one has to find ways to provide it.  
 
-    #     owner:             This refers to the actual owner of the data set, i.e.
-                             the main proposer or the person doing the measurement
-                             on a lab reflectometer
-    #         name:          
-    #         affiliation:     
-    #         contact:       * 
-    #     experiment:  
-    #         title:         * proposal or project title
-    #         instrument:    
-    #         start_date:    yyyy-mm-dd
-    #         probe:         neutrons or x-rays
-    #         facility:      
-    #         proposalID:    *
-    #         doi:           * might be provided by the facility
-    #     sample:  
-    #         name:          string identifying the individual sample or the subject and state being measured
-    #         type:          * one of solid/liquid, liquid/solid, gas/liquid, liquid/liquid, solid/gas, gas/solid 
-    #         composition:   * free text notes on the nominal composition of the sample  
-                               e.g. Si | SiO2 (20 A) | Fe (200 A) | air (beam side)
-                               this line/section might contain information to be understood by analysis software
-    #         description:   * free text, further details of the sample, e.g. size
-    #         environment:   * free text, name of the sample environment device(s)
+#     owner:             This refers to the actual owner of the data set, i.e.
+                         the main proposer or the person doing the measurement
+                         on a lab reflectometer.
+#         name:          
+#         affiliation:   If more than one affiliation is listed these can be 
+                         seperated with a `;`.
+#         contact:       * 
+#     experiment:  
+#         title:         * proposal or project title
+#         instrument:    
+#         start_date:    yyyy-mm-dd
+#         probe:         neutrons or x-rays
+#         facility:      
+#         proposalID:    *
+#         doi:           * might be provided by the facility
+#     sample:  
+#         name:          string identifying the individual sample or the subject and state being measured
+#         type:          * one of solid/liquid, liquid/solid, gas/liquid, liquid/liquid, solid/gas, gas/solid 
+#         composition:   * free text notes on the nominal composition of the sample  
+                          e.g. Si | SiO2 (20 A) | Fe (200 A) | air (beam side)
+                          this line/section might contain information to be understood by analysis software
+#         description:   * free text, further details of the sample, e.g. size
+#         environment:   * free text, name of the sample environment device(s)
+```
 
 The following list of sample parameters is incomplete and expandable.
 All these entries are optional.
 
-    #         temperature:
-    #             unit:
-    #             value:
-    #             min: 
-    #             max:
+```
+#         temperature:
+#             unit:
+#             value:
+#             min: 
+#             max:
+```
 
 In case there are several temperatures:
 
-    #           - description:
-    #             unit:
-    #             value:
-    #             min:
-    #             max:
-    #           - description:
-    #             unit:
-    #             value:
-    #             min:
-    #             max:
+```
+#           - description:
+#             unit:
+#             value:
+#             min:
+#             max:
+#           - description:
+#             unit:
+#             value:
+#             min:
+#             max:
 
-    #         magnetic_field:
-    #             unit:
-    #             value:
-    #             direction: 
-    #         electric_potential:
-    #             unit:      V
-    #             value:    
-    #         electric_current:
-    #             unit:      A
-    #             value:
-    #         electric_ac_field: 
-    #             amplitude:
-    #                 unit:
-    #                 value:
-    #             frequency: 
-    #                 unit:
-    #                 value:
+#         magnetic_field:
+#             unit:
+#             value:
+#             direction: 
+#         electric_potential:
+#             unit:      V
+#             value:    
+#         electric_current:
+#             unit:      A
+#             value:
+#         electric_ac_field: 
+#             amplitude:
+#                 unit:
+#                 value:
+#             frequency: 
+#                 unit:
+#                 value:
+```
     
 and so on for `pressure`, `surface_pressure`, `pH`, ....
 
+```
+#    measurement: 
+#         scheme:               * one of angle-dispersive / energy-dispersive / angle- and energy-dispersive 
+#         instrument_settings:  
+#             configuration:    * half / full polarized | liquid_surface | ....   free text
+#             incident_angle:  
+#                 unit:        
+#                 value:
+#                 min:  
+#                 max:   
+#             wavelength:
+#                 unit:       
+#                 value:
+#                 min: 
+#                 max: 
+#             polarization:     for neutrons one of  unpolarized / p / m / pp / pm / mp / mm  / vector
+                                for x-rays one of ...  
 
-
-    #    measurement: 
-    #         scheme:               * one of angle-dispersive / energy-dispersive / angle- and energy-dispersive 
-    #         instrument_settings:  
-    #             configuration:    * half / full polarized | liquid_surface | ....   free text
-    #             incident_angle:  
-    #                 unit:        
-    #                 value:
-    #                 min:  
-    #                 max:   
-    #             wavelength:
-    #                 unit:       
-    #                 value:
-    #                 min: 
-    #                 max: 
-    #             polarization:     for neutrons one of  unpolarized / p / m / pp / pm / mp / mm  / vector
-                                    for x-rays one of ...  
-
-    #         data_files:  
-    #             - file:           free text (file name or identifier doi)
-    #               timestamp:      yyyy-mm-ddThh:mm:ss
-    #             - file:       
-    #               timestamp:  
-    #         references:  
-    #             - file:   
-    #               timestamp: 
-  
+#         data_files:  
+#             - file:           free text (file name or identifier doi)
+#               timestamp:      yyyy-mm-ddThh:mm:ss
+#             - file:       
+#               timestamp:  
+#         references:  
+#             - file:   
+#               timestamp: 
+```
   
 ### data reduction
 
-This section is mandatory whenever some kind of data reduction was performed. 
+This section is **mandatory** whenever some kind of data reduction was performed. 
 
 An example where it is not required is the output of an x-ray lab source, as 
 long as no normalisation or absorber correction has been performed.
