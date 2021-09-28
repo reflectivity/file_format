@@ -49,10 +49,9 @@ For time stamps we use the ISO8601 format for **date and time**: 'yyyy-mm-ddThh:
 This is local time.
 Do not use UTC (hence no suffix Z).
 If the time zone shall be specified (e.g. for disambiguation of summer/winter time),
-then append the UTC time offset in the form "+09:30", i.e. 'yyyy-mm-ddThh:mm:ss+09:30'
+then append the UTC time offset in the form "+09:30", i.e. 'yyyy-mm-ddThh:mm:ss+09:30'.
 
-If just the date is of interest, only the **date** part of the same standard is used:
-'yyyy-mm-dd'.
+If just the date is of interest, only the **date** part of the same standard is used: 'yyyy-mm-dd'.
 
 
 ### units
