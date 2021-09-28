@@ -53,7 +53,6 @@ then append the UTC time offset in the form "+09:30", i.e. 'yyyy-mm-ddThh:mm:ss+
 
 If just the date is of interest, only the **date** part of the same standard is used: 'yyyy-mm-dd'.
 
-
 ### units
 
 In the header, physical quantities shall always be stored with magnitude and unit in the form
@@ -79,32 +78,30 @@ Recommended units include:
 - for energies, `eV`, `keV`;
 - for temperatures, `K`.
 
-
 ### comments
 
 There are 2 kinds of comments possible:
 
-The key word `comment:` allows to add free text, e.g. to describe a related entry
-in more detail. E.g.
+The key word `comment:` allows to add free text, e.g. to describe a related entry in more detail. E.g.
 
-    comment: |
-        Attention! These data have been collected without the frame overlap mirror
-        and contain thus some highly structured background.
+```
+comment: |
+   Attention! These data have been collected without the frame overlap mirror
+   and contain thus some highly structured background.
 
-        Still the peak positions can be analysed.
+   Still the peak positions can be analysed.
+```
 
-A hash (`#`) declares everything that follows on the same line to be outside the
-hierarchical structure and will be ignored by YAML (or JSON) based information
-processing. E.g. the first line of the text representation contains information
-not structured due to YAML rules and thus starts with `# # `, where the first
-hash means *header* and the second *non-YAML entry*.
+A hash (`#`) declares everything that follows on the same line to be outside the hierarchical structure and will be ignored by YAML (or JSON) based information processing. 
+E.g. the first line of the text representation contains information not structured due to YAML rules and thus starts with `# # `, where the first hash means *header* and the second *non-YAML entry*.
 
 Example:
 
-    sample:
-        name: Ni1000 
-        # there is a scratch on the surface!
-
+```
+sample:
+   name: Ni1000 
+   # there is a scratch on the surface!
+```
 ---
 
 
