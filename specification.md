@@ -258,72 +258,71 @@ and so on for `pressure`, `surface_pressure`, `pH`, ....
 
 This section is **mandatory** whenever some kind of data reduction was performed. 
 
-An example where it is not required is the output of an x-ray lab source, as 
-long as no normalisation or absorber correction has been performed.
+An example where it is not required is the output of an x-ray lab source, as long as no normalisation or absorber correction has been performed.
 
-The content of this section should contain enough information to rerun
-the reduction, either by explicitly hosing all the required information,
-or by referring to a Nexus representation, a notebook or a log file. 
+The content of this section should contain enough information to rerun the reduction, either by explicitly hosing all the required information, or by referring to a Nexus representation, a notebook or a log file. 
 
-    # reduction:  
-    #      software:
-    #          name:         name of the reduction software
-    #          version:      
-    #          platform:     * operating system
-    #      computer:         * computer name
-    #      call:             * if applicable, command line call or similar 
-    #      script:           * path to e.g. notebook
-    #      binary:           * path to full information file
-    #      timestamp:        date and time of file creation
+```
+# reduction:  
+#      software:
+#          name:         name of the reduction software
+#          version:      
+#          platform:     * operating system
+#      computer:         * computer name
+#      call:             * if applicable, command line call or similar 
+#      script:           * path to e.g. notebook
+#      binary:           * path to full information file
+#      timestamp:        date and time of file creation
+```
 
 The following subsection identifies the person or routine who created this file.
 She/he is the one responsible for the content.
 
-    #      creator:           
-    #          name:         
-    #          affiliation:   
-    #          contact:       *
+```
+#      creator:           
+#          name:         
+#          affiliation:   
+#          contact:       *
+```
 
-Optional, but recommended is a list of corrections performed in free text.
+Optional, but **recommended** is a list of corrections performed in free text.
 This helps the user to set the respective parameters for the data analysis.
 
-In case a correction step follows a certain published algorithm, a link
-to the publication or homepage might be given.
+In case a correction step follows a certain published algorithm, a link to the publication or homepage might be given.
 
-This part might be expanded by defined entries, which are understood by
-data analysis software.
+This part might be expanded by defined entries, which are understood by data analysis software.
 
-    #      corrections:          free text to inform user
-    #         - footprint
-    #         - background
-    #         - polarisation
-    #         - ballistic correction
-    #         - incident intensity
-    #         - detector efficiency 
-    #         - scaling / normalisation
-    #      comment: |
-    #         Normalisation performed with a reference sample            
+```
+#      corrections:          free text to inform user
+#         - footprint
+#         - background
+#         - polarisation
+#         - ballistic correction
+#         - incident intensity
+#         - detector efficiency 
+#         - scaling / normalisation
+#      comment: |
+#         Normalisation performed with a reference sample 
+```
 
 The `comment` is used to give some more information. 
 
 ### column description
 
-This data representation is meant to store a physical observable *R* / *I*
-as a function of a variable *Qz*. Together with the related information about
-the error of *R* / *I* and the resolution of *Qz* this leads to the defined leading 4 
-columns of the data set. I.e.
+This data representation is meant to store a physical observable *R* / *I* as a function of a variable *Qz*. 
+Together with the related information about the error of *R* / *I* and the resolution of *Qz* this leads to the defined leading 4  columns of the data set. 
+I.e.
 
 1. *Qz* with units
 2. *I* or *R* with units (if applicable)
 3. *sigma* of *I* or *R* with units (if applicable)
 4. *sigma* of resolution of *Qz* with units 
 
-where for columns 3 and 4, *sigma* is the standard deviation of a Gaussian
-distribution.
+where for columns 3 and 4, *sigma* is the standard deviation of a Gaussian distribution.
 
 - The first column must be called *Qz*, the units must either be `1/angstrom` or `1/nm`.
-- The second column must be the physically observed value. It is strongly advised that
-this be normalised reflectivity (called *R*), but can also be un-normalised intensity
+- The second column must be the physically observed value. 
+  It is strongly advised that this be normalised reflectivity (called *R*), but can also be un-normalised intensity
 (called *I*). In the latter case units should be provided, e.g. 1/s. The naming of the
 third column is then *sR* or *sI*.
 - It's strongly advised that the third and fourth columns are provided. If these are
