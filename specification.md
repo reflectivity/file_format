@@ -322,64 +322,66 @@ where for columns 3 and 4, *sigma* is the standard deviation of a Gaussian distr
 
 - The first column must be called *Qz*, the units must either be `1/angstrom` or `1/nm`.
 - The second column must be the physically observed value. 
-  It is strongly advised that this be normalised reflectivity (called *R*), but can also be un-normalised intensity
-(called *I*). In the latter case units should be provided, e.g. 1/s. The naming of the
-third column is then *sR* or *sI*.
-- It's strongly advised that the third and fourth columns are provided. If these are
-unknown then a value of 'nan' can be used in the data array. The fourth column must
-have the same units as the first.
+  It is strongly advised that this be normalised reflectivity (called *R*), but can also be un-normalised intensity (called *I*). 
+  In the latter case units should be provided, e.g. 1/s. 
+  The naming of the third column is then *sR* or *sI*.
+- It's **strongly advised** that the third and fourth columns are provided. 
+  If these are unknown then a value of 'nan' can be used in the data array. 
+  The fourth column must have the same units as the first.
 
 The example given refers to *R(Qz)* which has unit 1
 
-    # columns:
-    #      - name:        Qz
-    #        unit:        1/angstrom 
-    #        description: wavevector transfer
-    #      - name:        R
-    #        description: reflectivity
-    #      - name:        sR 
-    #        description: standard deviation of reflectivity
-    #      - name:        sQz
-    #        unit:        1/angstrom 
-    #        description: standard deviation of wavevector transfer resolution
+```
+# columns:
+#      - name:        Qz
+#        unit:        1/angstrom 
+#        description: wavevector transfer
+#      - name:        R
+#        description: reflectivity
+#      - name:        sR 
+#        description: standard deviation of reflectivity
+#      - name:        sQz
+#        unit:        1/angstrom 
+#        description: standard deviation of wavevector transfer resolution
+```
 
-Further columns can be of any type, content and order. But always with
-description and units. These further columns correspond to the fifth column onwards,
-meaning that the third and fourth columns must be specified.
+Further columns can be of any type, content and order. 
+But always with description and units. 
+These further columns correspond to the fifth column onwards, meaning that the third and fourth columns must be specified.
 
-    #     - name:        alpha_i
-    #       unit:        deg  
-    #       description: angle of incidence
-    #     - name:        lambda
-    #       unit:        angstrom 
-    #       description: wavelength
+```
+#     - name:        alpha_i
+#       unit:        deg  
+#       description: angle of incidence
+#     - name:        lambda
+#       unit:        angstrom 
+#       description: wavelength
+```
 
-If there are multiple data sets in one file, the first one can be given an identifier
-with the optional line:
+If there are multiple data sets in one file, the first one can be given an identifier with the optional line:
 
-    # data_set:   * <identifier>
+```
+# data_set:   * <identifier>
+```
 
-Also optionally there might be a short-notation column description preceded with
-a hash, since this line is outside the YAML structure
+Also optionally there might be a short-notation column description preceded with a hash, since this line is outside the YAML structure
 
-    # #         Qz             R              sR              sQz
+```
+# #         Qz             R              sR              sQz
+```
 
 ---
 
 ## data set
 
-The data set is organised as a rectangular array, where all entries in a column have the
-same physical meaning. The leading 4 columns strictly have to follow the rules stated
-in the *column description* section.
+The data set is organised as a rectangular array, where all entries in a column have the same physical meaning. 
+The leading 4 columns strictly have to follow the rules stated in the *column description* section.
 
-- All entries have to be of the same data type, preferably float.
+- All entries have to be of the same data type, preferably `float`.
 - There is no leading space.
 - Separators are spaces, tabs are not allowed.
-- Whilst it's strongly advised to provide values for the third and fourth columns, if
-these are unknown then use `nan` for the values.
-
-- It is recommended to use the same format for all columns,
-  preferably `'%-22.16e'`.
+- Whilst it's strongly advised to provide values for the third and fourth columns, if these are unknown then use `nan` for the values.
+- It is recommended to use the same format for all columns, preferably `'%-22.16e'`.
 
 ```
 1.0356329600000000e-02 3.8810006800000001e+00 4.3390906800000000e+00 5.1781647800000000e-05
@@ -389,8 +391,7 @@ these are unknown then use `nan` for the values.
 
 ## multiple data sets
 
-In case there are several data sets in one file, e.g. for different spin states or temperatures, 
-the following rules apply:
+In case there are several data sets in one file, e.g. for different spin states or temperatures, the following rules apply:
 
 ### separator
 
@@ -399,33 +400,38 @@ This is recognised by gnuplot as a separator for 3 dimensional data sets.
 
 The mandatory separator between data sets is the string
 
-    # data_set: <identifier>
+```
+# data_set: <identifier>
+```
 
-where `<identifier>` is either an unique name or a number. The default numbering of data sets starts with 0, the first additional one thus gets number 1 and so on.
+where `<identifier>` is either an unique name or a number. 
+The default numbering of data sets starts with 0, the first additional one thus gets number 1 and so on.
 
 ### overwrite meta data
 
-Below the separator line, metadata might be added. These overwrite the metadata supplied in the header 
-(i.e. data set 2 does not know anything about the changes made for data set 1).
-
+Below the separator line, metadata might be added. 
+These overwrite the metadata supplied in the header (i.e. data set 2 does not know anything about the changes made for data set 1).
 
 For the case of additional input data with different spin state this might look like
 
-    #     data_source:
-    #         measurement:
-    #             polarization: m
-    #     reduction:
-    #         input_files:
-    #             data_files:
-    #                 - file:      amor2020n001930.hdf
-    #                   timestamp: 2020-02-03T15:27:45
-
+```
+#     data_source:
+#         measurement:
+#             polarization: m
+#     reduction:
+#         input_files:
+#             data_files:
+#                 - file:      amor2020n001930.hdf
+#                   timestamp: 2020-02-03T15:27:45
+```
 
 ### repetition of short-version column description
 
-optional
+**optional**
 
+```
     # #         Qz             R              sR              sQz          lambda
+```
 
 ### next data set
 
