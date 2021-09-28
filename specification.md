@@ -4,7 +4,7 @@ title: "ORSO - file formats - specifications for the text reflectivity file"
 author: "Jochen Stahn"  
 ---
 
-This document contains the specifications and some examples for the text representation of the orso reflectivity file. 
+This document contains the specifications and some examples for the text representation of the ORSO reflectivity file. 
 It is the basis for the development of python modules to read and write these files.
 
 The main contributors are: 
@@ -27,35 +27,29 @@ last modified: 2021-09-25
 
 ### file extension
 
-It is recommended to use the suffix `.ort` (**o**rso **r**eflectivity **t**extfile) for
-reflectivity files following this standard.
+It is recommended to use the suffix `.ort` (**o**rso **r**eflectivity **t**extfile) for reflectivity files following this standard.
 
 ### placeholders
 
-If there is no entry available for a keyword, the default value for both, string and numbers is
-the string `null` 
-
+If there is no entry available for a keyword, the default value for both, string and numbers is the string `null` 
 
 ### language
 
-In line with canSAS and NeXUS, we use American English for the keywords. 
+In line with canSAS and NeXus, we use American English for the keywords. 
 E.g. `polarization` rather than `polarisation`. 
-
 
 ### encoding
 
 The text representation allows for UNICODE characters. 
 For the keywords only ASCII Basic Latin encoding is allowed. 
 
-
 ### date and time format
 
-For time stamps we use the
-ISO8601 format for **date and time**: 'yyyy-mm-ddThh:mm:ss'.
+For time stamps we use the ISO8601 format for **date and time**: 'yyyy-mm-ddThh:mm:ss'.
 This is local time.
 Do not use UTC (hence no suffix Z).
 If the time zone shall be specified (e.g. for disambiguation of summer/winter time),
-then append the UTC time offset in the form "+09:30".
+then append the UTC time offset in the form "+09:30", i.e. 'yyyy-mm-ddThh:mm:ss+09:30'
 
 If just the date is of interest, only the **date** part of the same standard is used:
 'yyyy-mm-dd'.
