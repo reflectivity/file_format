@@ -448,4 +448,4 @@ probably with a different number of rows.
 
 ## the end
 
-There are no rules yet for a footer. Thus creating one might collide with future versions of the ORSO (.ort) format.
+There are no rules yet for a footer. Thus creating one might collide with future versions of the ORSO (`.ort`) format.
