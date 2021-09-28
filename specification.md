@@ -58,15 +58,17 @@ If just the date is of interest, only the **date** part of the same standard is 
 
 In the header, physical quantities shall always be stored with magnitude and unit in the form
 
-    <quantity>:
-         magnitude: <magnitude>
-         unit: <unit>
+```
+<quantity>:
+     magnitude: <magnitude>
+     unit: <unit>
+```
 
 Rules for using units:
 
 - only ASCII symbols are to be used;
   - the greek letter μ is written as `mu` (e.g. `mum` for micrometer);
-  - `angstrom` cannot be abbreviated (Å is not allowed, A stands for Ampere);
+  - `angstrom` cannot be abbreviated (`Å` is not allowed, `A` stands for Ampere);
 - composition with `*` and `/`, exponentiation with `**`
   - reciprocal units are written e.g. as `1/nm` for wavenumbers, `1/angstrom**2` for the scattering length density
 
