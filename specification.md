@@ -172,7 +172,7 @@ All entries marked with an asterisk `*` are optional.
 #         doi:           * might be provided by the facility
 #     sample:  
 #         name:          string identifying the individual sample or the subject and state being measured
-#         type:          * one of solid/liquid, liquid/solid, gas/liquid, liquid/liquid, solid/gas, gas/solid 
+#         category:      * front (beam side) / back, each side should be one of solid, liquid or gas (i.e. solid/liquid)
 #         composition:   * free text notes on the nominal composition of the sample  
                           e.g. Si | SiO2 (20 A) | Fe (200 A) | air (beam side)
                           this line/section might contain information to be understood by analysis software
