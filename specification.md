@@ -167,6 +167,8 @@ All entries marked with an asterisk `*` are optional.
 #         instrument:    
 #         start_date:    yyyy-mm-dd
 #         probe:         neutrons or x-rays
+#         method:        speculer reflectometry
+#         mode:          * enrgy- or angle dispersive
 #         facility:      
 #         proposalID:    *
 #         doi:           * might be provided by the facility
