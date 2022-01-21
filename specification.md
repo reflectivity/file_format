@@ -167,8 +167,6 @@ All entries marked with an asterisk `*` are optional.
 #         instrument:    
 #         start_date:    yyyy-mm-dd
 #         probe:         neutrons or x-rays
-#         method:        speculer reflectometry
-#         mode:          * enrgy- or angle dispersive
 #         facility:      
 #         proposalID:    *
 #         doi:           * might be provided by the facility
@@ -230,6 +228,7 @@ and so on for `pressure`, `surface_pressure`, `pH`, ....
 
 ```
 #    measurement: 
+#         method:               specular reflectometry
 #         scheme:               * one of angle-dispersive / energy-dispersive / angle- and energy-dispersive 
 #         instrument_settings:  
 #             configuration:    * half / full polarized | liquid_surface | ....   free text
