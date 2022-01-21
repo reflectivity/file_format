@@ -228,6 +228,7 @@ and so on for `pressure`, `surface_pressure`, `pH`, ....
 
 ```
 #    measurement: 
+#         method:               specular reflectometry
 #         scheme:               * one of angle-dispersive / energy-dispersive / angle- and energy-dispersive 
 #         instrument_settings:  
 #             configuration:    * half / full polarized | liquid_surface | ....   free text
