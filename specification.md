@@ -352,11 +352,11 @@ These further columns correspond to the fifth column onwards, meaning that the t
 
 ```
 #     - name:        alpha_i
-#       unit:        deg  
-#       description: angle of incidence
-#     - name:        lambda
-#       unit:        angstrom 
-#       description: wavelength
+#        unit:        deg  
+#        description: angle of incidence
+#      - name:        lambda
+#        unit:        angstrom 
+#        description: wavelength
 ```
 
 If there are multiple data sets in one file, the first one can be given an identifier with the optional line:
