@@ -450,3 +450,12 @@ probably with a different number of rows.
 ## the end
 
 There are no rules yet for a footer. Thus creating one might collide with future versions of the ORSO (`.ort`) format.
+
+---
+
+## under discussion
+
+Here follows a list of items to be discussed and probably included into the specifications.
+
+- extention to non-specular entries
+- inclusion of the optional fields 'experimental team' and 'beamline contact'
