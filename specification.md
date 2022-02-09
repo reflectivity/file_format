@@ -236,11 +236,23 @@ and so on for `pressure`, `surface_pressure`, `pH`, ....
 #                 value:
 #                 min:  
 #                 max:   
+#             incident_angle_resolution:
+#                 unit:
+#                 shape:        * gaussian | trapezoid (covers triangle and rectangle as well)
+#                 value:        * if given as columns, should be named 'incident_angle_resolution_1'...
+#                   - width_1   * 1-sigma for gaussian, central width for trapezoid
+#                   - width_2   * (optional): truncation full-width for gaussian, outer width for trapezoid
 #             wavelength:
 #                 unit:       
 #                 value:
 #                 min: 
 #                 max: 
+#             wavelength_resolution:
+#                 unit:
+#                 shape:        * gaussian | trapezoid (covers triangle and rectangle as well)
+#                 value:        * if given as columns, should be named 'wavelength_resolution_1'...
+#                   - width_1   * 1-sigma for gaussian, central width for trapezoid
+#                   - width_2   * truncation full-width for gaussian (optional), outer width for trapezoid
 #             polarization:     for neutrons one of  unpolarized / p / m / pp / pm / mp / mm  / vector
                                 for x-rays one of ...  
 
