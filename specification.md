@@ -180,6 +180,14 @@ All entries marked with an asterisk `*` are optional.
 #         environment:   * free text, name of the sample environment device(s)
 ```
 
+*alternative suggestion for `environment`:*
+
+```
+#         environment:  * dictionary with freely choosable keys
+#             cryostat: CCR 1
+#             magnet: horizontal 1T electromagnet
+```
+
 The following list of sample parameters is incomplete and expandable.
 All these entries are optional.
 
@@ -253,7 +261,11 @@ and so on for `pressure`, `surface_pressure`, `pH`, ....
 #             - file:   
 #               timestamp: 
 ```
-  
+
+*`references` might be misleading. Alternatively one might use `normalisation_files`. And probably `background_files` if an 'empty' measurement is used to characterise the background.*
+
+
+
 ### data reduction
 
 This section is **mandatory** whenever some kind of data reduction was performed. 
