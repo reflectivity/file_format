@@ -19,7 +19,7 @@ Jochen Stahn.
 Comments and contributions are welcome and should be 
 communicated to <Jochen.Stahn@psi.ch>.
 
-last modified: 2021-09-28
+last modified: 2022-04-27
 
 ---
 
@@ -111,6 +111,13 @@ These of course should not interfere with defined content, and the rules for uni
 
 The header follows a hierarchical structure and is formatted according to YAML (see below) or JSON rules. 
 In addition, each line of the header starts with a hash and a space `# ` (wrapped YAML), which is the default header marker in Python (and other languages).
+
+The header is organised following a *chronological* structure:
+
+- Where do the raw (=input) data come from?
+- What was done to them?
+- (probably) How were they analysed?
+- What is the outcome?
 
 ### first line
 
@@ -262,8 +269,23 @@ and so on for `pressure`, `surface_pressure`, `pH`, ....
 #               timestamp: 
 ```
 
-*`references` might be misleading. Alternatively one might use `normalisation_files`. And probably `background_files` if an 'empty' measurement is used to characterise the background.*
+*`references` is misleading. Alternatively one might use `normalisation_files`. And probably `background_files` if an 'empty' measurement is used to characterise the background:
 
+```
+#         data_files:  
+#             - file:           free text (file name or identifier doi)
+#               timestamp:      yyyy-mm-ddThh:mm:ss
+#             - file:       
+#               timestamp:  
+#         normalisation_files:  
+#             - file:   
+#               timestamp: 
+#         background_files:
+#             - file:   
+#               timestamp:
+```
+
+The idea here is to list all files used for the data reduction. The actual corrections and probably the used algorithme are mentioned in the section `reduction.corrections`.*
 
 
 ### data reduction
