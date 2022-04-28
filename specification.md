@@ -347,10 +347,10 @@ This data representation is meant to store a physical observable *R* / *I* as a 
 Together with the related information about the error of *R* / *I* and the resolution of *Qz* this leads to the defined leading 4  columns of the data set. 
 I.e.
 
-1. *Qz* with units
-2. *I* or *R* with units (if applicable)
-3. *sigma* of *I* or *R* with units (if applicable)
-4. *sigma* of resolution of *Qz* with units 
+1. *Qz* with unit
+2. *I* or *R* with unit (if applicable)
+3. *sigma* of *I* or *R* with unit (if applicable)
+4. *sigma* of resolution of *Qz* with unit 
 
 where for columns 3 and 4, *sigma* is the standard deviation of a Gaussian distribution.
 
