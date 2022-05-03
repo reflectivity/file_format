@@ -258,34 +258,23 @@ and so on for `pressure`, `surface_pressure`, `pH`, ....
 #                 max: 
 #             polarization:     for neutrons one of  unpolarized / p / m / pp / pm / mp / mm  / vector
                                 for x-rays one of ...  
-
-#         data_files:  
-#             - file:           free text (file name or identifier doi)
+#         data_files:           raw data
+#             - file:           string (file name or identifier doi)
 #               timestamp:      yyyy-mm-ddThh:mm:ss
 #             - file:       
 #               timestamp:  
-#         references:  
+#         background_files:     (extra) measurements to determin the background
+#             - file:   
+#               timestamp: 
+#         normalisation_files:  measurements used for normalisation (and further corrections)
+#             - file:   
+#               timestamp: 
+#         transmission_files:   measurements to determin the losses due to the sample environment
 #             - file:   
 #               timestamp: 
 ```
 
-*`references` is misleading. Alternatively one might use `normalisation_files`. And probably `background_files` if an 'empty' measurement is used to characterise the background:
-
-```
-#         data_files:  
-#             - file:           free text (file name or identifier doi)
-#               timestamp:      yyyy-mm-ddThh:mm:ss
-#             - file:       
-#               timestamp:  
-#         normalisation_files:  
-#             - file:   
-#               timestamp: 
-#         background_files:
-#             - file:   
-#               timestamp:
-```
-
-The idea here is to list all files used for the data reduction. The actual corrections and probably the used algorithme are mentioned in the section `reduction.corrections`.*
+The idea here is to list all files used for the data reduction. The actual corrections and probably the used algorithme are mentioned in the section `reduction.corrections`.
 
 
 ### data reduction
