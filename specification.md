@@ -173,7 +173,7 @@ All entries marked with an asterisk `*` are optional.
 #         title:         * proposal or project title
 #         instrument:    
 #         start_date:    yyyy-mm-dd
-#         probe:         neutrons or x-rays
+#         probe:         'neutron' or 'x-ray' (see nxsource)
 #         facility:      
 #         proposalID:    *
 #         doi:           * might be provided by the facility
@@ -367,6 +367,24 @@ The example given refers to *R(Qz)* which has unit 1
 #        unit:        1/angstrom 
 #        description: standard deviation of wavevector transfer resolution
 ```
+
+For discussion: Artur suggested 
+
+```
+# columns:
+#      - name:        Qz
+#        unit:        1/angstrom 
+#        description: wavevector transfer
+#      - name:        R
+#        description: reflectivity
+#      - error_of:    R
+#        error_type:  standard deviation 
+#        distribution_shape: gaussian
+#      - error_of:    Qz
+#        error_type:  standard deviation of resolution
+#        distribution_shape: rectangular
+```
+
 
 Further columns can be of any type, content and order. 
 But always with description and units. 
