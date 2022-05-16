@@ -372,18 +372,25 @@ For discussion: Artur suggested
 
 ```
 # columns:
-#      - name:        Qz
-#        unit:        1/angstrom 
-#        description: wavevector transfer
-#      - name:        R
-#        description: reflectivity
-#      - error_of:    R
-#        error_type:  standard deviation 
-#        distribution_shape: gaussian
-#      - error_of:    Qz
-#        error_type:  standard deviation of resolution
-#        distribution_shape: rectangular
+#      - name:         Qz
+#        unit:         1/angstrom 
+#        description:  wavevector transfer
+#      - name:         R
+#        description:  reflectivity
+#      - error_of:     R
+#        error_type:   uncertainty 
+#        distribution: gaussian, sigma
+#      - error_of:     Qz
+#        error_type:   resolution
+#        distribution: rectangular, FWHM
 ```
+
+with
+
+- `errortype:` one of `uncertainty` (default) or `resolution`
+- `distribution:` one of `gaussian` (default), `rectangular` or `triangular` and `sigma` (default) or `FWHM`
+
+The respective unit is taken from the quantity the error referes to.
 
 
 Further columns can be of any type, content and order. 
