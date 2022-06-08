@@ -4,8 +4,10 @@ title: "ORSO - file formats - specifications for the text reflectivity file"
 author: "Jochen Stahn"  
 ---
 
+# ORSO - file formats - specifications for the text reflectivity file
+
 This document contains the specifications and some examples for the text representation of the ORSO reflectivity file. 
-It is the basis for the development of python modules to read and write these files.
+It was the basis for the development of the **orsopy** python modules to read and write these files.
 
 The main contributors are: 
 Andrew McCluskey,
@@ -19,7 +21,7 @@ Jochen Stahn.
 Comments and contributions are welcome and should be 
 communicated to <Jochen.Stahn@psi.ch>.
 
-last modified: 2022-04-27
+last modified: 2022-06-07
 
 ---
 
