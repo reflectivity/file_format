@@ -492,3 +492,10 @@ probably with a different number of rows.
 ## the end
 
 There are no rules yet for a footer. Thus creating one might collide with future versions of the ORSO (`.ort`) format.
+
+## suggestions, discussion \& future
+
+- Prepare an  example .ort file for a lax x-ray source as basis for negitiantions with manufacturers. 
+- *Reserve* keywords for planned future use. E.g. give a warning when used....
+- Add structured information about the sample history. 
+- How to report on the individual settings for *stitched* data sets?
