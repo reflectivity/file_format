@@ -58,8 +58,7 @@ My vote is for 3 implemented in this last way, for the purpose that the header c
  
 #### Future feature request:
 
-Ability to have an error defined for a quantity in the header, either implemented similar to how quantities are allowed to have a range, or similar to how columns are allowed to be an error of another column”
-~                                                                               
+Ability to have an error defined for a quantity in the header, either implemented similar to how quantities are allowed to have a range, or similar to how columns are allowed to be an error of another column”                                                                              
 
 ### confusion of physical terms 
 
@@ -69,25 +68,25 @@ We have a confusion of what we use as key words. Since the german terms are diff
 
 #### official definitions
 
-What can be measured or calculated is a *physical quantity*.
+What can be measured or calculated is a **physical quantity**.
 
 > E.g. the *incident angle*
 
-This has a *dimension* = dim(*physical quantity*) relating it to a set of base quantities like *lenth*, *time*, *charge*, *temperature* etc. The *dimension* is no unit, nor can it be used to unambigiously describe a *physical quantity* (*plane angle* does not tell between *scattering angle*, *incident angle*, *total reflection angle*, ...). 
+This has a **dimension** = dim(*physical quantity*) relating it to a set of base quantities like *lenth*, *time*, *charge*, *temperature* etc. The *dimension* is no unit, nor can it be used to unambigiously describe a *physical quantity* (*plane angle* does not tell between *scattering angle*, *incident angle*, *total reflection angle*, ...). 
 
 > dim( *incident angle* ) = *plane angle*
 
-The *physical quantity* is often refered to by using a symbol.
+The *physical quantity* is often refered to by using a **symbol**.
 
-> one possible symbol for *incident angle* is $\alpha_i$ or a_i
+> one possible symbol for *incident angle* is $\alpha_i$ (or *alpha_i* in the orso header)
 
-The *physical quantity* is composed of a *numerical magnitude* times a *unit*. Depending on the chosen *unit*, the *numerical magnitude* changes.
+The *physical quantity* is composed of a **numerical magnitude** times **unit**. Depending on the chosen *unit*, the *numerical magnitude* changes.
 
 > $\alpha_i = 2.3 \cdot \mathrm{deg}$
 
 #### what we do wrong or inconsistent
 
-- In the columns section, we use *dimension* instead of *physical quantity*. This is certainly wron and we should change it.
+- In the columns section, we use *dimension* instead of *physical quantity*. This is certainly wrong and we should change it.
 - The *numerical magnitude* is just called *magnitude*. This might be fine.
 - For the *error_of* we specify the meaning of *magnitude unit* using the term *value_is*. Consistent would be *physival quantity*. Here *value_is* is easier to read and might stay.
 - The the column *name* we use the *symbol* (R, Qz, alpha_i, ...) rather than *physical quantity*. But in the header above we use the latter as key words. Thus if the analysis software searches for example for information about the *incident angle*, it has to look ar various places (this is intended) for different keys. 
