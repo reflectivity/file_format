@@ -91,3 +91,23 @@ The *physical quantity* is composed of a **numerical magnitude** times **unit**.
 - For the *error_of* we specify the meaning of *magnitude unit* using the term *value_is*. Consistent would be *physival quantity*. Here *value_is* is easier to read and might stay.
 - The the column *name* we use the *symbol* (R, Qz, alpha_i, ...) rather than *physical quantity*. But in the header above we use the latter as key words. Thus if the analysis software searches for example for information about the *incident angle*, it has to look ar various places (this is intended) for different keys. 
  
+## reserve key words 
+
+suggestions:
+
+- alpha_i, incident_angle
+- alpha_f, final_angle
+- photon_energy
+- counting_time
+- attenuation_factor
+
+## stitched data
+
+- where do we store e.g. the angles for stitched tof measurements? These are no longer used for processing, but may help future planning.
+- x-ray data obtained with different attenuator settings.
+
+## guidelines for writing and reading
+
+- hirarchy for looking up information (e.g. column beats header content)
+- avoid contradicting information (e.g. incident angle in the header for angle-disperse measurement
+- 
