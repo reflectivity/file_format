@@ -104,7 +104,7 @@ The *physical quantity* is composed of a **numerical magnitude** times **unit**.
 #### what we do wrong or inconsistent
 
 - In the columns section, we use *dimension* instead of *physical quantity*. This is certainly wrong and we will change it.
-- The the column *name* we use the *symbol* (R, Qz, alpha_i, ...) rather than *physical quantity*. But in the header above we use the latter as key words. Thus if the analysis software searches for example for information about the *incident angle*, it has to look ar various places (this is intended) for different keys. A solution might be that the software searches for standardised `physical_property` entries in the column description which match the keys in the header. 
+- For the column *name* we use the *symbol* (R, Qz, alpha_i, ...) rather than the *physical quantity*. But in the header above we use the latter as key words. Thus if the analysis software searches for example for information about the *incident angle*, it has to look ar various places (this is intended) for different keys. A solution might be that the software searches for standardised `physical_property` entries in the column description which match the keys in the header. 
  
 ## reserve key words 
 
