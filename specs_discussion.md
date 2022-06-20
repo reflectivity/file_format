@@ -20,7 +20,7 @@ Or is this discrepancy in the example required because column names must be diff
 > (Jochen) See also below. This problem arises from the fact that we try to make it right in the header, and use the *conventional*
 > terms in the column description. 
 > 
-> The keywords in the header are taken form the *physical quantity* name, e.g. *incidence_angel*, 
+> The keywords in the header are taken form the *physical quantity* name, e.g. *incidence_angle*, 
 > while in the (optional) column description there are two possible (and recommended) entries: `name` and `physical_property`. 
 > The `name` is used to create the 1-line header right above the data array and thus a well-established *symbol* is the right choice there.
 > And `physical_property` is used to avoid all ambiguities.
