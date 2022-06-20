@@ -97,9 +97,12 @@ suggestions:
 
 - alpha_i, incident_angle
 - alpha_f, final_angle
+- two_theta, scattering_angle
+- phi_f, in_plane_angle (phi_i = 0)
 - photon_energy
 - counting_time
 - attenuation_factor
+- scaling_factor
 
 ## stitched data
 
