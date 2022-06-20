@@ -72,7 +72,7 @@ What can be measured or calculated is a **physical quantity**.
 
 > E.g. the *incident angle*
 
-This has a **dimension** = dim(*physical quantity*) relating it to a set of base quantities like *lenth*, *time*, *charge*, *temperature* etc. The *dimension* is no unit, nor can it be used to unambigiously describe a *physical quantity* (*plane angle* does not tell between *scattering angle*, *incident angle*, *total reflection angle*, ...). 
+This has a **dimension** = dim(*physical quantity*) relating it to a set of base quantities like *length*, *time*, *charge*, *temperature* etc. The *dimension* is no unit, nor can it be used to unambigiously describe a *physical quantity* (*plane angle* does not tell between *scattering angle*, *incident angle*, *total reflection angle*, ...). 
 
 > dim( *incident angle* ) = *plane angle*
 
