@@ -133,7 +133,7 @@ The first line contains information about
 Since it is not part of the YAML hierarchy, a second hash is needed.
 
 ```
-# # ORSO reflectivity data file | 0.1 standard | YAML encoding | https://www.reflectometry.org/
+# # ORSO reflectivity data file | 1.0 standard | YAML encoding | https://www.reflectometry.org/
 ```
 
 ### second line
@@ -174,7 +174,7 @@ All entries marked with an asterisk `*` are optional.
 #     experiment:  
 #         title:             proposal, measurement or project title
 #         instrument:    
-#         start_date:        yyyy-mm-dd
+#         start_date:        yyyy-mm-dd (for series of measurements) or yyyy-mm-ddThh:mm:ss (e.g. for lab x-ray reflectometers)
 #         probe:             'neutron' or 'x-ray' (see nxsource)
 #         facility:          *
 #         proposalID:        *
@@ -214,7 +214,7 @@ In case there are several temperatures:
 #             min:            50
 #             max:            150
 #             unit:           K
-#             all_values:     [v1, v2, v3, v4, ...]   # (a used defined keyword in this example)
+#             all_values:     [v1, v2, v3, v4, ...]   # (a user-defined keyword in this example)
 
 #         magnetic_field:     #  (if only value is needed use "magnitude" instead of x/y/z
 #             x:              1.5
@@ -253,6 +253,7 @@ and so on for `pressure`, `surface_pressure`, `pH`, ....
 #         data_files:           raw data from sample
 #             - file:           file name or identifier doi
 #               timestamp:      yyyy-mm-ddThh:mm:ss
+#               incident_angle: * user-defined in case of stitched data
 #             - file:       
 #               timestamp:  
 #         additional_files:     (extra) measurements used in for data reduction like normalization, background, etc.
@@ -278,7 +279,7 @@ The content of this section should contain enough information to rerun the reduc
 #          name:         name of the reduction software
 #          version:      *
 #          platform:     * operating system
-#      timestamp:        date and time of file creation
+#      timestamp:        date and time of reduction
 #      computer:         * computer name
 #      call:             * if applicable, command line call or similar 
 #      script:           * path to e.g. notebook
@@ -319,28 +320,23 @@ The `comment` is used to give some more information.
 
 ### column description
 
-This data representation is meant to store a physical observable *R* / *I* as a function of a variable *Qz*. 
-Together with the related information about the error of *R* / *I* and the resolution of *Qz* this leads to the defined leading 4  columns of the data set. 
+This data representation is meant to store the physical quantity *R* as a function of normal momentum transfer *Qz*. 
+Together with the related information about the error of *R* and the resolution of *Qz* this leads to the defined 
+leading 4 columns of the data set. 
 I.e.
 
-1. *Qz* with unit
-2. *I* or *R* with unit (if applicable)
-3. *sigma* of *I* or *R* with unit (if applicable)
-4. *sigma* of resolution of *Qz* with unit 
+1. *Qz* (normal momentum transfer) with unit (1/angstrom` or `1/nm`)
+2. *R* with unit 1
+   (fuzzy use of the term *reflectivity* since the data might still be affected by resolution, background, etc, and might not be normalised)
+4. *sigma* of *R* 
+5. *sigma* or *FWHM* of resolution in *Qz*  
 
-where for columns 3 and 4, *sigma* is the standard deviation of a Gaussian distribution. 
+for columns 3 and 4 the default is *sigma*, the standard deviation of a Gaussian distribution. 
 (While the specification allows for error columns of different type (FWHM or non-gaussian), this descritption is to be preferred.)
 
-- The first column must be called *Qz*, the units must either be `1/angstrom` or `1/nm`.
-- The second column must be the physically observed value. 
-  It is strongly advised that this be normalised reflectivity (called *R*), but can also be un-normalised intensity (called *I*). 
-  In the latter case units should be provided, e.g. 1/s. 
-  The naming of the third column is then *sR* or *sI*.
-- It's **strongly advised** that the third and fourth columns are provided. 
-  If these are unknown then a value of 'nan' can be used in the data array. 
-  The error columns always have the same units as the corresponding data columns.
-
-The example given refers to *R(Qz)* which has unit 1
+It's **strongly advised** that the third and fourth columns are provided. 
+If these are unknown then a value of 'nan' can be used in the data array. 
+The error columns always have the same units as the corresponding data columns.
 
 ```
 # columns:
@@ -351,8 +347,8 @@ The example given refers to *R(Qz)* which has unit 1
 #        dimension:    * reflectivity
 #      - error_of:     R
 #        error_type:   * uncertainty        
-#        value_is:     * sigma              
-#        distribution: * gaussian                (one of gaussian, triangular, uniform, lorentzian with default being gaussian)
+#        value_is:     * sigma                   (one of sigma (default) or FWHM)
+#        distribution: * gaussian                (one of gaussian (default), triangular, uniform, lorentzian or rectangular)
 #      - error_of:     Qz
 #        error_type:   * resolution
 #        value_is:     * FWHM
@@ -387,7 +383,7 @@ Previously there was no distinction between error and data columns, in this case
 
 
 
-Further columns can be of any type, content and order. 
+Further columns can be of any type, content or order. 
 But always with description, units . 
 These further columns correspond to the fifth column onwards, meaning that the third and fourth columns must be specified.
 
@@ -400,7 +396,7 @@ These further columns correspond to the fifth column onwards, meaning that the t
 #       description: wavelength
 ```
 
-If there are multiple data sets in one file, each one is given an identifier with the line (optional for first/one dataset):
+If there are multiple data sets in one file (see below), each one is given an identifier with the line (optional for first/one dataset):
 
 ```
 # data_set:   * <identifier>
@@ -409,7 +405,7 @@ If there are multiple data sets in one file, each one is given an identifier wit
 Also optionally there might be a short-notation column description preceded with a hash, since this line is outside the YAML structure
 
 ```
-# # Q (1/angstrom)     R                      sR                     sQz
+# #                 Qz                      R                     sR                    sQz
 ```
 
 ---
@@ -453,9 +449,9 @@ The default numbering of data sets starts with 0, the first additional one thus 
 
 Below the separator line, metadata might be added. 
 These overwrite the metadata supplied in the initial main header (i.e. data set 2 does not know anything 
-about the changes made for data set 1 but keeps any unchanged values from the first header).
+about the changes made for data set 1 but keeps any values from data set 0 (the header) which is not overwritten.
 
-For the case of additional input data with different spin state this might look like:
+For the case of additional input data (from an other raw file) with different spin state this might look like:
 
 ```
 #     data_source:
@@ -473,7 +469,7 @@ For the case of additional input data with different spin state this might look 
 **optional**
 
 ```
-# # Q (1/angstrom)     R                      sR                     sQz                     lambda (angstrom)
+# #                 Qz                      R                     sR                    sQz                  lambda
 ```
 
 ### next data set
@@ -494,6 +490,8 @@ probably with a different number of rows.
 There are no rules yet for a footer. Thus creating one might collide with future versions of the ORSO (`.ort`) format.
 
 ## suggestions, discussion \& future
+
+see also the [discussion page](./spacs_discussion.md)
 
 - Prepare an  example .ort file for a lax x-ray source as basis for negitiantions with manufacturers. 
 - *Reserve* keywords for planned future use. E.g. give a warning when used....
