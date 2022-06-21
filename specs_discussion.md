@@ -108,7 +108,7 @@ The *physical quantity* is composed of a **numerical magnitude** times **unit**.
  
 ## reserve key words 
 
-suggestions:
+suggestions for physical quantities:
 
 - *physical quantity* | *symbol* | *self-explanatory key*
 
@@ -121,7 +121,10 @@ suggestions:
 - *attenuation factor* | **?** | `attenuation_factor`
 - *scaling factor* | **?** | `scaling_factor`
 
-- *offset* of a quantity with respect to the value reported in the raw file. 
+other suggestions:
+
+- `xxx.offset` of a quantity with respect to the value reported in the raw file. 
+- `sample.size.x` and `sample.size.y`
 
 ## stitched data
 
@@ -149,7 +152,18 @@ suggestions:
 >            - file:
 >              ...
 > ```
+
+> or (`details` is orso-undefined and thus treated as a string)
 > 
+> ``` YAML
+>         data_files:
+>            - file: ....
+>              timestamp: ....
+>              details: 1.0 deg, 42 min
+>            - file:
+>              ...
+> ```
+
 > The best choice depends on the type and operation mode of the instrument and thus should be made by the instrument responsible.
 
 
