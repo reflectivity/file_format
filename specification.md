@@ -491,7 +491,7 @@ There are no rules yet for a footer. Thus creating one might collide with future
 
 ## suggestions, discussion \& future
 
-see also the [discussion page](https://www.reflectometry.org/file_format/specs_discussion.md)
+see also the [discussion page](https://www.reflectometry.org/file_format/specs_discussion)
 
 - Prepare an  example .ort file for a lax x-ray source as basis for negitiantions with manufacturers. 
 - *Reserve* keywords for planned future use. E.g. give a warning when used....
