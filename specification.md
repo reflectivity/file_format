@@ -190,14 +190,6 @@ All entries marked with an asterisk `*` are optional.
 #         sample_parameters: * sub-items for sample parameters with currently undefined keys and associated values, e.g. T: {magnitude: 300, unit: K}
 ```
 
-*alternative suggestion for `environment`:*
-
-```
-#         environment:  * dictionary with freely choosable keys
-#             cryostat: CCR 1
-#             magnet: horizontal 1T electromagnet
-```
-
 The following list of sample parameters is incomplete and expandable.
 All these entries are optional.
 
