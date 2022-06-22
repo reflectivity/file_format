@@ -124,7 +124,19 @@ suggestions for physical quantities:
 other suggestions:
 
 - `xxx.offset` of a quantity with respect to the value reported in the raw file. 
-- `sample.size.x` and `sample.size.y`
+- `sample.size`
+
+  > ``` YAML
+  >      sample:
+  >          size:
+  >              x: <x>
+  >              y: <y>
+  >              z: <z>
+  >              unit: mm
+  >          size: {x: <x>, y: <y>, z: <z>, unit: mm}
+  > ```
+
+
 
 ## stitched data
 
@@ -138,22 +150,12 @@ other suggestions:
 >         incident_angle:
 >              min: 1.0
 >              max: 5.8
->              used_angles: 1.0, 2.7, 5.8
+>              individual_values: 1.0, 2.7, 5.8
 >              unit: deg
 > ```
 > 
-> Or as atributes to the measurement files in the `data_files` section:
->
-> ``` YAML
->         data_files:
->            - file: ....
->              timestamp: ....
->              angle: 1.0
->            - file:
->              ...
-> ```
-
-> or (`details` is orso-undefined and thus treated as a string)
+> Or as atributes to the measurement files in the `data_files` section
+> (`details` is orso-undefined and thus treated as a string):
 > 
 > ``` YAML
 >         data_files:
