@@ -136,7 +136,7 @@ other suggestions:
   >          size: {x: <x>, y: <y>, z: <z>, unit: mm}
   > ```
 
-
+- `scan_type` steps or continous
 
 ## stitched data
 
