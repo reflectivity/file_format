@@ -18,10 +18,17 @@ Maximilian Skoda
 and
 Jochen Stahn.
 
-Comments and contributions are welcome and should be 
-communicated to <Jochen.Stahn@psi.ch>.
+last modified: 2022-06-23
 
-last modified: 2022-06-07
+---
+
+This specification file aims at describing and defining the ORSO `.ort` format. The **reference** in case of a conflict or
+ambiguity is the schma of the orsopy implementation (if up-to-date). 
+If you detect some inconsistency, please report it to <Jochen.Stahn@psi.ch>.
+
+Items under discussion and changes intended for **future releases** can be found at the 
+[discussion page](https://www.reflectometry.org/file_format/specs_discussion). Please have a look and 
+contribute (critics, suggestions, hints, ...).
 
 ---
 
@@ -338,63 +345,47 @@ The error columns always have the same units as the corresponding data columns.
 #      - name:         R
 #        dimension:    * reflectivity
 #      - error_of:     R
-#        error_type:   * uncertainty        
-#        value_is:     * sigma                   (one of sigma (default) or FWHM)
-#        distribution: * gaussian                (one of gaussian (default), triangular, uniform, lorentzian or rectangular)
+#        error_type:   * uncertainty               
+#        distribution: * gaussian   
+#        value_is:     * sigma   
 #      - error_of:     Qz
 #        error_type:   * resolution
-#        value_is:     * FWHM
 #        distribution: * rectangular
+#        value_is:     * FWHM
 ```
 
 with
 
+- `name:` a recognisible, short and commonly used name of the physical quantity, most probably a common symbol
+- `dimension:` the plain name of the physical quantity (ill-named, will be replaced by `physical_quantity` in the next release)
 - `errortype:` one of `uncertainty` (default) [one random value chosen from distribution] or `resolution` [spread over distribution]
 - `distribution:` one of `gaussian` (default), `uniform`, `triangular` or `lorentzian` 
 - `value_is`: one of `sigma` (default) or `FWHM`
+- the respective unit of the error is taken from the quantity the error referes to
 
-The respective unit is taken from the quantity the error referes to.
-
-
-Previously there was no distinction between error and data columns, in this case the example would look like this and errors must be provided with the appropriate unit and name. This should be discussed within ORSO.
-
-```
-# columns:
-#      - name:        Qz
-#        unit:        1/angstrom 
-#        dimension:   wavevector transfer
-#      - name:        R
-#        dimension:   reflectivity
-#      - name:        sR 
-#        dimension:   standard deviation of reflectivity
-#      - name:        sQz
-#        unit:        1/angstrom 
-#        dimension:   standard deviation of wavevector transfer resolution
-```
-
-
-
-
-Further columns can be of any type, content or order. 
-But always with description, units . 
-These further columns correspond to the fifth column onwards, meaning that the third and fourth columns must be specified.
+Further columns can be of any type, content or order,
+but **always** with description and unit. 
+These further columns correspond to the fifth column onwards, meaning that the third and fourth columns must be specified 
+(in the worst case filled with `none`).
 
 ```
 #     - name:        alpha_i
 #       unit:        deg  
-#       description: angle of incidence
+#       dimension:   incident_angle
 #     - name:        lambda
 #       unit:        angstrom 
-#       description: wavelength
+#       dimension:   wavelength
 ```
 
-If there are multiple data sets in one file (see below), each one is given an identifier with the line (optional for first/one dataset):
+If there are multiple data sets in one file (see below), each starts with an identifier and a line looking like:
 
 ```
 # data_set:   * <identifier>
 ```
 
-Also optionally there might be a short-notation column description preceded with a hash, since this line is outside the YAML structure
+This line is optional for the first (or only) dataset.
+
+Also optionally there might be a short-notation column description (preceded with a hash, since this line is outside the YAML structure):
 
 ```
 # #                 Qz                      R                     sR                    sQz
