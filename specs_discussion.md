@@ -174,3 +174,71 @@ other suggestions:
 - hirarchy for looking up information (e.g. column beats header content)
 - avoid contradicting information (e.g. single incident angle in the header for angle-disperse measurement)
 - 
+
+## open issues for lab x-ray reflectometers
+
+When attempting to convert the ASCII output files of various commercial lab x-ray reflectometers (diffractometers) 
+it became obvious that the present dictionary misses several entries.
+ 
+- The wavelength is often defiend via the anode material, the line(s) and probably the presence of a monochromator.
+- The scan modes might be `steps` or `continous`.
+- The slit sizes are reported to enable resolution calculation.
+- Often a long list of hardware settings is supplied, e.g. tube current, temperature, configuration, etc. 
+  These things do not really belong to a *reduced data* file, but we shoul at least recommend a place for
+  these entries. In the example below I put it as a multy-line string in `instrument_settings.details`.
+ 
+``` YAML 
+    measurement: 
+         instrument_settings:  
+             incident_angle:           
+                 min:          0.1
+                 max:          6.0
+                 unit:         deg
+             wavelength:               
+                 magnitude:    (1.5405980 *2 + 1.5444260)/3
+                 unit:         angstrom
+                 anode:        Cu 
+                 lines:
+                    - name:    K_alpha1
+                      magnitude:  1.5405980
+                      weight:  2/3
+                    - name:    K_alpha2
+                      magnitude:  1.5444260
+                      weight:  1/3
+             scan_type:        continuous
+             details: |
+                 "Configuration=Reflection-Transmission Spinner 3.0, Owner=user, Creation date=3/5/2021 8:12:09 AM"
+                 "Goniometer=Theta/Theta; Minimum step size 2Theta:0.0001; Minimum step size Omega:0.0001"
+                 "Sample stage=Reflection-transmission spinner 3.0; Minimum step size Phi:0.1"
+```
+ 
+- It is not exactely clear where to put the *brand*, *model* and probably *configuration* information.
+
+``` YAML
+     experiment:
+         title: ...
+         instrument:
+             brand: Brucker
+             model: Discovery
+             hardware_indicator: 65519
+```
+ 
+- The `.ort` specs clearly separate data origin and data reduction. Here it often the same software for 
+  instrument control and reduction.
+- Information aboiut the facility, the owner and the sample is often missing.
+- Most present day files report the *incident angle*, the *counting time* and probably the *attenuation factor* 
+  as columns. We should define standard keys for the corresponding column descriptions.
+ 
+``` YAML
+      - name: a_i
+        unit: deg
+        physical_quantity: incident_angle
+      - name: a_f
+        unit: deg
+        physical_quantity: final_angle
+      - name: tme ?
+        unit: s
+        physical_quantity: counting_time
+      - name: abs ?
+        physical_quantity: absorber_factor
+```
