@@ -195,7 +195,7 @@ it became obvious that the present dictionary misses several entries.
                  max:          6.0
                  unit:         deg
              wavelength:               
-                 magnitude:    (1.5405980 *2 + 1.5444260)/3
+                 magnitude:    1.54184
                  unit:         angstrom
                  anode:        Cu 
                  lines:
