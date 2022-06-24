@@ -188,7 +188,7 @@ it became obvious that the present dictionary misses several entries.
   these entries. In the example below I put it as a multy-line string in `instrument_settings.details`.
  
 ``` YAML 
-    measurement: 
+     measurement: 
          instrument_settings:  
              incident_angle:           
                  min:          0.1
@@ -214,14 +214,14 @@ it became obvious that the present dictionary misses several entries.
  
 - It is not exactely clear where to put the *brand*, *model* and probably *configuration* information.
 
-``` YAML
+  ``` YAML
      experiment:
          title: ...
          instrument:
              brand: Brucker
              model: Discovery
              hardware_indicator: 65519
-```
+  ```
  
 - The `.ort` specs clearly separate data origin and data reduction. Here it often the same software for 
   instrument control and reduction.
@@ -229,7 +229,7 @@ it became obvious that the present dictionary misses several entries.
 - Most present day files report the *incident angle*, the *counting time* and probably the *attenuation factor* 
   as columns. We should define standard keys for the corresponding column descriptions.
  
-``` YAML
+  ``` YAML
       - name: a_i
         unit: deg
         physical_quantity: incident_angle
@@ -241,4 +241,4 @@ it became obvious that the present dictionary misses several entries.
         physical_quantity: counting_time
       - name: abs ?
         physical_quantity: absorber_factor
-```
+  ```
