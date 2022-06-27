@@ -228,12 +228,15 @@ it became obvious that the present dictionary misses several entries.
   as columns. We should define standard keys for the corresponding column descriptions.
  
   ``` YAML
-      - name: a_i
+      - name: alpha_i
         unit: deg
         physical_quantity: incident_angle
-      - name: a_f
+      - name: alpha_f
         unit: deg
         physical_quantity: final_angle
+      - name: two_theta
+        unit: deg
+        physical_quantity: scattering_angle
       - name: tme ?
         unit: s
         physical_quantity: counting_time
