@@ -180,6 +180,18 @@ other suggestions:
 When attempting to convert the ASCII output files of various commercial lab x-ray reflectometers (diffractometers) 
 it became obvious that the present dictionary misses several entries.
  
+- It is not exactely clear where to put the *brand*, *model* and probably *configuration* information.
+
+  ``` YAML
+     experiment:
+         title: ...
+         instrument:
+             type: x-ray lab source        (neutron reflectometer, synchrotron diffractometer, ....)
+             brand: Brucker
+             model: Discovery
+             hardware_indicator: 65519
+  ```
+ 
 - The wavelength is often defiend via the anode material, the line(s) and probably the presence of a monochromator.
 - The scan modes might be `steps` or `continous`.
 - The slit sizes are reported to enable resolution calculation.
@@ -212,20 +224,6 @@ it became obvious that the present dictionary misses several entries.
                  "Sample stage=Reflection-transmission spinner 3.0; Minimum step size Phi:0.1"
 ```
  
-- It is not exactely clear where to put the *brand*, *model* and probably *configuration* information.
-
-  ``` YAML
-     experiment:
-         title: ...
-         instrument:
-             brand: Brucker
-             model: Discovery
-             hardware_indicator: 65519
-  ```
- 
-- The `.ort` specs clearly separate data origin and data reduction. Here it often the same software for 
-  instrument control and reduction.
-- Information aboiut the facility, the owner and the sample is often missing.
 - Most present day files report the *incident angle*, the *counting time* and probably the *attenuation factor* 
   as columns. We should define standard keys for the corresponding column descriptions.
  
@@ -242,3 +240,7 @@ it became obvious that the present dictionary misses several entries.
       - name: abs ?
         physical_quantity: absorber_factor
   ```
+ 
+- The `.ort` specs clearly separate data origin and data reduction. For lab reflectometers it often the same software for 
+  instrument control and reduction.
+- Information about the facility, the owner and the sample is often missing.
