@@ -70,12 +70,16 @@ My vote is for 3 implemented in this last way, for the purpose that the header c
 > 
 > We discussed the pointer from header to column entries in an early stage and it was dropped at some point. 
 > With a priorisation *column over header* this is clear to the software.
+
+:red_circle: **item 1**: What is the ORSO recommendation for using redundand information? 
  
 #### Future feature request:
 
 Ability to have an error defined for a quantity in the header, either implemented similar to how quantities are allowed to have a range, or similar to how columns are allowed to be an error of another column”        
 
 > Very good point. Artur will make a suggestion fr this.
+
+:red_circle: **item 2**: How are uncertainties of quantities in the header supplied?
 
 ### confusion of physical terms 
 
@@ -105,6 +109,8 @@ The *physical quantity* is composed of a **numerical magnitude** times **unit**.
 
 - In the columns section, we use *dimension* instead of *physical quantity*. This is certainly wrong and we will change it.
 - For the column *name* we use the *symbol* (R, Qz, alpha_i, ...) rather than the *physical quantity*. But in the header above we use the latter as key words. Thus if the analysis software searches for example for information about the *incident angle*, it has to look ar various places (this is intended) for different keys. A solution might be that the software searches for standardised `physical_property` entries in the column description which match the keys in the header. 
+
+:red_circle: **item 3**: Do we agree to change the key `dimension` to `physical_quantity`?
  
 ## reserve key words 
 
@@ -137,6 +143,12 @@ other suggestions:
   > ```
 
 - `scan_type` steps or continous
+ 
+:red_circle: **item 4**: Do we *reserve* key words for future use? 
+ 
+:red_circle: **item 5**: How are key words reserved? Are there any warnings?
+ 
+:red_circle: **item 6**: Which key words should we reserve?
 
 ## stitched data
 
@@ -167,6 +179,8 @@ other suggestions:
 > ```
 
 > The best choice depends on the type and operation mode of the instrument and thus should be made by the instrument responsible.
+ 
+:red_circle: **item 7**: Do we introduce `individual_values` or `details` as special versions of `comment`? 
 
 
 ## guidelines for writing and reading
@@ -176,6 +190,8 @@ other suggestions:
 - 
 
 ## open issues for lab x-ray reflectometers
+ 
+:red_circle: **item 8**: Which of the keys discussed below should be included in the specs to (better) incorporate lab x-ray data files?
 
 When attempting to convert the ASCII output files of various commercial lab x-ray reflectometers (diffractometers) 
 it became obvious that the present dictionary misses several entries.
