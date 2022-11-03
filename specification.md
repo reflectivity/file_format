@@ -270,7 +270,7 @@ This section is **mandatory** whenever some kind of data reduction was performed
 
 An example where it is not required is the output of an x-ray lab source, as long as no normalisation or absorber correction has been performed.
 
-The content of this section should contain enough information to rerun the reduction, either by explicitly hosing all the required information, or by referring to a Nexus representation, a notebook or a log file. 
+The content of this section should contain enough information to rerun the reduction, either by explicitly hosting all the required information, or by referring to a Nexus representation, a notebook or a log file. 
 
 ```
 # reduction:  
@@ -339,27 +339,27 @@ The error columns always have the same units as the corresponding data columns.
 
 ```
 # columns:
-#      - name:         Qz
-#        unit:         1/angstrom 
-#        dimension:    * wavevector transfer
-#      - name:         R
-#        dimension:    * reflectivity
-#      - error_of:     R
-#        error_type:   * uncertainty               
-#        distribution: * gaussian   
-#        value_is:     * sigma   
-#      - error_of:     Qz
-#        error_type:   * resolution
-#        distribution: * rectangular
-#        value_is:     * FWHM
+#      - name:               Qz
+#        unit:               1/angstrom 
+#        physical_quantity:  * wavevector transfer
+#      - name:               R
+#        physical_quantity:  * reflectivity
+#      - error_of:           R
+#        error_type:         * uncertainty               
+#        distribution:       * gaussian   
+#        value_is:           * sigma   
+#      - error_of:           Qz
+#        error_type:         * resolution
+#        distribution:       * rectangular
+#        value_is:           * FWHM
 ```
 
 with
 
 - `name:` a recognisible, short and commonly used name of the physical quantity, most probably a common symbol
-- `dimension:` the plain name of the physical quantity (ill-named, will be replaced by `physical_quantity` in the next release)
+- `physical_quantity:` the plain name of the physical quantity
 - `errortype:` one of `uncertainty` (default) [one random value chosen from distribution] or `resolution` [spread over distribution]
-- `distribution:` one of `gaussian` (default), `uniform`, `triangular` or `lorentzian` 
+- `distribution:` one of `gaussian` (default), `uniform`, `triangular`, `rectangular` or `lorentzian` 
 - `value_is`: one of `sigma` (default) or `FWHM`
 - the respective unit of the error is taken from the quantity the error referes to
 
@@ -369,12 +369,16 @@ These further columns correspond to the fifth column onwards, meaning that the t
 (in the worst case filled with `none`).
 
 ```
-#     - name:        alpha_i
-#       unit:        deg  
-#       dimension:   incident_angle
-#     - name:        lambda
-#       unit:        angstrom 
-#       dimension:   wavelength
+#     - name:               alpha_i
+#       unit:               deg  
+#       physical_quantity:  incident_angle
+#     - error_of:           alpha_i
+#       error_type:         resolution
+#       distribution:       rectangular
+#       value_is:           FWHM
+#     - name:               lambda
+#       unit:               angstrom 
+#       physical_quantity:  wavelength
 ```
 
 If there are multiple data sets in one file (see below), each starts with an identifier and a line looking like:
