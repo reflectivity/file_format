@@ -24,15 +24,15 @@ Consequences:
 
 - adaption of `orsopy`
 
-Votes:
+### Votes:
 
 - Do we want this?
 - How much standardisation outside the `.ort` will we provide?
 
-Responsible:
+### Responsible:
 
-> Jochen
+Jochen
 
-Due date:
+### Due date:
 
-> 2022-12-31
+2022-12-31
