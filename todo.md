@@ -6,7 +6,9 @@ author: "Jochen Stahn"
 
 Some of the items mentioned below are discussed in more detail at
 
-> [www.reflectometry.org/file_format/specs_discussion](https://www.reflectometry.org/file_format/specs_discussion)
+[www.reflectometry.org/file_format/specs_discussion](https://www.reflectometry.org/file_format/specs_discussion)
+
+---
 
 ## use header syntax (and `orsopy`) for non-ort files
 
