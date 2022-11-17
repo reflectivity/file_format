@@ -21,9 +21,9 @@ Or is this discrepancy in the example required because column names must be diff
 > terms in the column description. 
 > 
 > The keywords in the header are taken form the *physical quantity* name, e.g. *incidence_angle*, 
-> while in the (optional) column description there are two possible (and recommended) entries: `name` and `physical_property`. 
+> while in the (optional) column description there are two possible (and recommended) entries: `name` and `physical_quantity`. 
 > The `name` is used to create the 1-line header right above the data array and thus a well-established *symbol* is the right choice there.
-> And `physical_property` is used to avoid all ambiguities.
+> And `physical_quantity` is used to avoid all ambiguities.
 
 If there is no current standard name (understanding that this is optional information), this should be made clear, with a statement/explanation of whether or not a standard name is expected in the future. 
 
@@ -70,16 +70,41 @@ My vote is for 3 implemented in this last way, for the purpose that the header c
 > 
 > We discussed the pointer from header to column entries in an early stage and it was dropped at some point. 
 > With a priorisation *column over header* this is clear to the software.
+>
+> ``` YAML
+> #    measurement: 
+> #         instrument_settings:  
+> #             incident_angle:  
+> 
+> one of:
+> #                 refere_to_column:  incident_angle
+> #                 magnitude: refere_to_column
+> 
+> #                 unit:  deg    
+> ```
 
-:red_circle: **item 1**: What is the ORSO recommendation for using redundand information? 
+**item 1**: What is the ORSO recommendation for using redundand information? 
  
 #### Future feature request:
 
 Ability to have an error defined for a quantity in the header, either implemented similar to how quantities are allowed to have a range, or similar to how columns are allowed to be an error of another column”        
 
-> Very good point. Artur will make a suggestion fr this.
+> (Jochen) Very good point. What about:
+>
+> ``` YAML
+> #    measurement: 
+> #         instrument_settings:  
+> #             incident_angle:  
+> #                 magnitude: 2.1
+> #                 unit:  deg    
+> #                 error:
+> #                     magnitude:    0.01
+> #                     error_type:   resolution
+> #                     distribution: gaussian
+> #                     value_is:     sigma
+> ```
 
-:red_circle: **item 2**: How are uncertainties of quantities in the header supplied?
+**item 2**: How are uncertainties of quantities in the header supplied?
 
 ### confusion of physical terms 
 
@@ -110,45 +135,42 @@ The *physical quantity* is composed of a **numerical magnitude** times **unit**.
 - In the columns section, we use *dimension* instead of *physical quantity*. This is certainly wrong and we will change it.
 - For the column *name* we use the *symbol* (R, Qz, alpha_i, ...) rather than the *physical quantity*. But in the header above we use the latter as key words. Thus if the analysis software searches for example for information about the *incident angle*, it has to look ar various places (this is intended) for different keys. A solution might be that the software searches for standardised `physical_property` entries in the column description which match the keys in the header. 
 
-:red_circle: **item 3**: Do we agree to change the key `dimension` to `physical_quantity`?
+**item 3**: Do we agree to change the key `dimension` to `physical_quantity`?
  
 ## reserve key words 
 
 suggestions for physical quantities:
 
-- *physical quantity* | *symbol* | *self-explanatory key*
+| *physical quantity* | *symbol* | *self-explanatory key* |
+|:---|:---|:---|
+| *incident angle* | `alpha_i` | `incident_angle` |
+| *final angle* | `alpha_f` | `final_angle` |
+| *scattering angle* | `two_theta` | `scattering_angle` |
+| *in-plane angle* | `phi_f` | `in_plane_angle` |
+| | | |
+| *photon energy* | `E` ? | `photon_energy`|
+| *wavelength* | `lambda` | `wavelength` |
+| | | |
+| *absolute counts* | `cnts` ? | `counts`, `events` |
+| *attenuation factor* | ? | `attenuation_factor` |
+| *scaling factor* | `s` ? | `scaling_factor` |
+| *counting time* | `t`, `tme` ? | `counting_time` |
+| | | |
+| *beam divergence* | `Delta_theta` | `beam_divergence` |
+| | | |
+| *intensity* | `I` | `intensity` |
 
-- *incident angle* | `alpha_i` | `incident_angle`
-- *final angle* | `alpha_f` | `final_angle`
-- *scattering_angle* | **?** | `two_theta`
-- *in-plane angle* | `phi_f` | `in_plane_angle`
-- *photon energy* | **?** | `photon_energy`
-- *counting time* | **?** | `counting_time`
-- *attenuation factor* | **?** | `attenuation_factor`
-- *scaling factor* | **?** | `scaling_factor`
 
 other suggestions:
 
 - `xxx.offset` of a quantity with respect to the value reported in the raw file. 
-- `sample.size`
-
-  > ``` YAML
-  >      sample:
-  >          size:
-  >              x: <x>
-  >              y: <y>
-  >              z: <z>
-  >              unit: mm
-  >          size: {x: <x>, y: <y>, z: <z>, unit: mm}
-  > ```
-
 - `scan_type` steps or continous
  
-:red_circle: **item 4**: Do we *reserve* key words for future use? 
+**item 4**: Do we *reserve* key words for future use? 
  
-:red_circle: **item 5**: How are key words reserved? Are there any warnings?
+**item 5**: How are key words reserved? Are there any warnings?
  
-:red_circle: **item 6**: Which key words should we reserve?
+**item 6**: Which key words should we reserve?
 
 ## stitched data
 
@@ -180,7 +202,7 @@ other suggestions:
 
 > The best choice depends on the type and operation mode of the instrument and thus should be made by the instrument responsible.
  
-:red_circle: **item 7**: Do we introduce `individual_values` or `details` as special versions of `comment`? 
+**item 7**: Do we introduce `individual_values` or `details` as special versions of `comment`? 
 
 
 ## guidelines for writing and reading
@@ -191,7 +213,7 @@ other suggestions:
 
 ## open issues for lab x-ray reflectometers
  
-:red_circle: **item 8**: Which of the keys discussed below should be included in the specs to (better) incorporate lab x-ray data files?
+**item 8**: Which of the keys discussed below should be included in the specs to (better) incorporate lab x-ray data files?
 
 When attempting to convert the ASCII output files of various commercial lab x-ray reflectometers (diffractometers) 
 it became obvious that the present dictionary misses several entries.
