@@ -10,6 +10,28 @@ Some of the items mentioned below are discussed in more detail at
 
 ---
 
+## decission making and releases
+
+The `orsopy` version 1.0 was released by the general meeting and is thus officialy justified. But how do we handle minor changes (new key words, correction of terms) or additions from there on? Who is deciding? 
+
+Present practice for small changes is that the orsopy authors discuss via github and finally release the result. 
+This pragmatic approach is working fine and we should keep it. But larger changes (which might interfere with other interests inside of orso, e.g. the simple model language) and deviations from formaly agreed principles (opening of the header structure to non reflectometry data) should be made by a wider body. The file formats group is not suitable for this since it is even smaller than the orsopy developers group.
+
+The orso chairs might be the right instance in between the general meetings - but this means some preparation and discussion of (all) the chairs berfore the decission.
+
+#### Votes:
+
+- Who allows minor changes to `orsopy`?
+- Who decides on major additions or changes of the principles?
+
+#### Responsible
+
+all orso chairs
+
+#### Due date:
+
+2022-12-19
+
 ## use header syntax (and `orsopy`) for non-ort files
 
 The `.ort` header is in many cases also suitable for other types of data.
@@ -37,7 +59,7 @@ Jochen
 
 #### Due date:
 
-2022-12-31
+2022-12-19
 
 ---
 
