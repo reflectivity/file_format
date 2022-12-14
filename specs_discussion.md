@@ -75,11 +75,9 @@ My vote is for 3 implemented in this last way, for the purpose that the header c
 > #    measurement: 
 > #         instrument_settings:  
 > #             incident_angle:  
-> 
-> one of:
-> #                 refere_to_column:  incident_angle
-> #                 magnitude: refere_to_column
-> 
+> #                 min:   <value>
+> #                 max:   <value>
+> #                 details_at_column: alpha_i
 > #                 unit:  deg    
 > ```
 
@@ -95,13 +93,24 @@ Ability to have an error defined for a quantity in the header, either implemente
 > #    measurement: 
 > #         instrument_settings:  
 > #             incident_angle:  
-> #                 magnitude: 2.1
-> #                 unit:  deg    
+> #                 magnitude:        2.1
+> #                 unit:             deg    
 > #                 error:
 > #                     magnitude:    0.01
 > #                     error_type:   resolution
 > #                     distribution: gaussian
 > #                     value_is:     sigma
+> ```
+> 
+> or the short notation
+> 
+> ``` YAML
+> #    measurement: 
+> #         instrument_settings:  
+> #             incident_angle:  
+> #                 magnitude:  2.1
+> #                 unit:       deg    
+> #                 error:      0.01
 > ```
 
 **item 2**: How are uncertainties of quantities in the header supplied?
