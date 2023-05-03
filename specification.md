@@ -18,7 +18,7 @@ Maximilian Skoda
 and
 Jochen Stahn.
 
-last modified: 2022-06-23
+last modified: 2023-05-03
 
 ---
 
@@ -87,6 +87,32 @@ Recommended units include:
 - for energies, `eV`, `keV`;
 - for temperatures, `K`.
 
+### errors
+
+Errors or uncertainties of a single physical quantity can be given in the form
+
+```
+<quantity>:
+    magnitude: <magnitude>
+    unit: <unit>
+    error: 
+        magnitude:    <error magnitude>
+        error_type:   uncertainty (default) | resolution
+        distribution: gaussian (default) | uniform | triangular | rectangular | lorentian
+        value_is:     sigma (default) | FWHM
+```
+
+The respective unit of the error is taken from the quantity the error referes to.  
+
+Example:
+
+```
+incident_angle:
+    magnitude: 2.3
+    unit: deg
+    error: {magnitude: 0.05}
+```
+
 ### comments
 
 There are 2 kinds of comments possible:
@@ -111,6 +137,7 @@ sample:
    name: Ni1000 
    # there is a scratch on the surface!
 ```
+
 ---
 
 ## the header
