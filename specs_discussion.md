@@ -80,6 +80,8 @@ My vote is for 3 implemented in this last way, for the purpose that the header c
 > #                 details_at_column: alpha_i
 > #                 unit:  deg    
 > ```
+> 
+> alternatively to `details_at_column` one can use the already existing `comment` to create a human-readabla link.
 
 **item 1**: What is the ORSO recommendation for using redundand information? 
  
@@ -87,7 +89,7 @@ My vote is for 3 implemented in this last way, for the purpose that the header c
 
 Ability to have an error defined for a quantity in the header, either implemented similar to how quantities are allowed to have a range, or similar to how columns are allowed to be an error of another column”        
 
-> (Jochen) Very good point. What about:
+> The following syntax is now implemented in orsopy:
 >
 > ``` YAML
 > #    measurement: 
@@ -101,19 +103,7 @@ Ability to have an error defined for a quantity in the header, either implemente
 > #                     distribution: gaussian
 > #                     value_is:     sigma
 > ```
-> 
-> or the short notation
-> 
-> ``` YAML
-> #    measurement: 
-> #         instrument_settings:  
-> #             incident_angle:  
-> #                 magnitude:  2.1
-> #                 unit:       deg    
-> #                 error:      0.01
-> ```
 
-**item 2**: How are uncertainties of quantities in the header supplied?
 
 ### confusion of physical terms 
 
@@ -141,10 +131,13 @@ The *physical quantity* is composed of a **numerical magnitude** times **unit**.
 
 #### what we do wrong or inconsistent
 
-- In the columns section, we use *dimension* instead of *physical quantity*. This is certainly wrong and we will change it.
-- For the column *name* we use the *symbol* (R, Qz, alpha_i, ...) rather than the *physical quantity*. But in the header above we use the latter as key words. Thus if the analysis software searches for example for information about the *incident angle*, it has to look ar various places (this is intended) for different keys. A solution might be that the software searches for standardised `physical_property` entries in the column description which match the keys in the header. 
+- In the columns section, we used *dimension* instead of *physical quantity*. This is certainly wrong and we will change it.
+ 
+In the meantime, the key `dimension` has been changed to `physical_quantity`.
+ 
+- For the column *name* we use the *symbol* (R, Qz, alpha_i, ...) rather than the *physical quantity*. But in the header above we use the latter as key words. Thus if the analysis software searches for example for information about the *incident angle*, it has to look in various places (this is intended) for different keys. A solution might be that the software searches for standardised `physical_quantity` entries in the column description which match the keys in the header. 
 
-**item 3**: Do we agree to change the key `dimension` to `physical_quantity`?
+
  
 ## reserve key words 
 
@@ -161,11 +154,11 @@ suggestions for physical quantities:
 | *wavelength* | `lambda` | `wavelength` |
 | | | |
 | *absolute counts* | `cnts` ? | `counts`, `events` |
-| *attenuation factor* | ? | `attenuation_factor` |
+| *attenuation factor* | `att` ? | `attenuation_factor` |
 | *scaling factor* | `s` ? | `scaling_factor` |
 | *counting time* | `t`, `tme` ? | `counting_time` |
 | | | |
-| *beam divergence* | `Delta_theta` | `beam_divergence` |
+| *beam divergence* | `Delta_theta` `Delta_alpha_i` ? | `beam_divergence` |
 | | | |
 | *intensity* | `I` | `intensity` |
 
@@ -183,42 +176,27 @@ other suggestions:
 
 ## stitched data
 
-- Where do we store e.g. the angles for stitched tof measurements? These are no longer used for processing, but may help future planning.
+- Where do we store e.g. the angles for stitched tof measurements? These are **no longer used for processing**, but may help future planning.
 - x-ray data obtained with different attenuator settings.
 
 > In case this information is not provided in one of the optional columns or in the individual headers of multiple data sets,
-> it can not be used by the analysis software. Good choices for this information might be extra entried e.g. in the `incident_angle` section:
+> it can not be used by the analysis software. Good choices for this information might be extra entries e.g. in the `incident_angle` section:
 >
 > ``` YAML
 >         incident_angle:
 >              min: 1.0
 >              max: 5.8
->              individual_values: 1.0, 2.7, 5.8
+>              individual_magnitudes: [1.0, 2.7, 5.8]
 >              unit: deg
 > ```
-> 
-> Or as atributes to the measurement files in the `data_files` section
-> (`details` is orso-undefined and thus treated as a string):
-> 
-> ``` YAML
->         data_files:
->            - file: ....
->              timestamp: ....
->              details: 1.0 deg, 42 min
->            - file:
->              ...
-> ```
 
-> The best choice depends on the type and operation mode of the instrument and thus should be made by the instrument responsible.
- 
-**item 7**: Do we introduce `individual_values` or `details` as special versions of `comment`? 
+**item 7**: Do we introduce `individual_magnitudes` as a new key within the class `ValueRange`? 
 
 
 ## guidelines for writing and reading
 
 - hirarchy for looking up information (e.g. column beats header content)
 - avoid contradicting information (e.g. single incident angle in the header for angle-disperse measurement)
-- 
 
 ## open issues for lab x-ray reflectometers
  
@@ -287,8 +265,8 @@ it became obvious that the present dictionary misses several entries.
       - name: tme ?
         unit: s
         physical_quantity: counting_time
-      - name: abs ?
-        physical_quantity: absorber_factor
+      - name: att ?
+        physical_quantity: attenuation_factor
   ```
  
 - The `.ort` specs clearly separate data origin and data reduction. For lab reflectometers it often the same software for 
