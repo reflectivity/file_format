@@ -9,6 +9,8 @@ author: "Jochen Stahn"
 
 In the following you find a rather unsorted collection of feedback and ideas about the `.ort` specs and the related `orsopy` package.
 
+last modified: 2023-05-05
+
 ### anonymous 2022 workshop participant
 
 #### naming confusion *angle_of_incidence* vs. *alpha_i* etc
