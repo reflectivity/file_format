@@ -288,7 +288,7 @@ and so on for `pressure`, `surface_pressure`, `pH`, ....
 #         scheme:               * one of angle-dispersive / energy-dispersive / angle- and energy-dispersive
 ```
 
-The idea here is to list all files used for the data reduction. The actual corrections and probably the used algorithem are mentioned in the section `reduction.corrections`.
+The idea here is to list all files used for the data reduction. The actual corrections and probably the used algorithm are mentioned in the section `reduction.corrections`.
 
 
 ### data reduction
@@ -506,7 +506,7 @@ There are no rules yet for a footer. Thus creating one might collide with future
 
 see also the [discussion page](https://www.reflectometry.org/file_format/specs_discussion)
 
-- Prepare an  example .ort file for a lax x-ray source as basis for negitiantions with manufacturers.
+- Prepare an  example .ort file for a lab x-ray source as basis for negotiations with manufacturers.
 - *Reserve* keywords for planned future use. E.g. give a warning when used....
 - Add structured information about the sample history.
 - How to report on the individual settings for *stitched* data sets?
