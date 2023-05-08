@@ -23,7 +23,7 @@ last modified: 2023-05-04
 ---
 
 This specification file aims at describing and defining the ORSO `.ort` format. The **reference** in case of a conflict or
-ambiguity is the schma of the orsopy implementation (if up-to-date). 
+ambiguity is the schema of the orsopy implementation (if up-to-date). 
 If you detect some inconsistency, please report it to <Jochen.Stahn@psi.ch>.
 
 Items under discussion and changes intended for **future releases** can be found at the 
@@ -98,7 +98,7 @@ Errors or uncertainties of a single physical quantity can be given in the form
     error: 
         magnitude:    <error magnitude>
         error_type:   uncertainty (default) | resolution
-        distribution: gaussian (default) | uniform | triangular | rectangular | lorentian
+        distribution: gaussian (default) | uniform | triangular | rectangular | lorentzian
         value_is:     sigma (default) | FWHM
 ```
 
@@ -117,7 +117,7 @@ incident_angle:
 
 There are 2 kinds of comments possible:
 
-The key word `comment:` allows to add free text, e.g. to describe a related entry in more detail. E.g.
+The key word `comment:` allows to add free text, e.g. to describe a related entry in more detail. Using YAML coding (see below) a multi-line comment might look like:
 
 ```
 comment: |
@@ -190,7 +190,7 @@ e.g.
 
 **mandatory**
 
-This section contains information about the origin and ownership of the raw data, together with details!!!
+This section contains information about the origin and ownership of the raw data, together with details.
 
 All entries marked with an asterisk `*` are optional.
 
@@ -288,14 +288,14 @@ and so on for `pressure`, `surface_pressure`, `pH`, ....
 #         scheme:               * one of angle-dispersive / energy-dispersive / angle- and energy-dispersive 
 ```
 
-The idea here is to list all files used for the data reduction. The actual corrections and probably the used algorithme are mentioned in the section `reduction.corrections`.
+The idea here is to list all files used for the data reduction. The actual corrections and probably the used algorithem are mentioned in the section `reduction.corrections`.
 
 
 ### data reduction
 
 This section is **mandatory** whenever some kind of data reduction was performed. 
 
-An example where it is not required is the output of an x-ray lab source, as long as no normalisation or absorber correction has been performed.
+An example where it is not required is the output of an x-ray lab source, as long as no normalization or absorber correction has been performed.
 
 The content of this section should contain enough information to rerun the reduction, either by explicitly hosting all the required information, or by referring to a Nexus representation, a notebook or a log file. 
 
@@ -312,8 +312,7 @@ The content of this section should contain enough information to rerun the reduc
 #      binary:           * path to full information file
 ```
 
-The following subsection identifies the person or routine who created this file.
-She/he is the one responsible for the content.
+The following subsection identifies the person or routine who created this file and is responsible for the content.
 
 ```
 #      creator:           
@@ -330,7 +329,7 @@ In case a correction step follows a certain published algorithm, a link to the p
 This part might be expanded by defined entries, which are understood by data analysis software.
 
 ```
-#      corrections:          list of free text to inform user about the performed stepts (in order of application)
+#      corrections:          list of free text to inform user about the performed steps (in order of application)
 #         - footprint
 #         - background
 #         - polarisation
@@ -351,14 +350,14 @@ Together with the related information about the error of *R* and the resolution 
 leading 4 columns of the data set. 
 I.e.
 
-1. *Qz* (normal momentum transfer) with unit (1/angstrom` or `1/nm`)
+1. *Qz* (normal momentum transfer) with unit (`1/angstrom` or `1/nm`)
 2. *R* with unit 1
-   (fuzzy use of the term *reflectivity* since the data might still be affected by resolution, background, etc, and might not be normalised)
+   (fuzzy use of the term *reflectivity* since the data might still be affected by resolution, background, etc, and might not be normalized)
 4. *sigma* of *R* 
 5. *sigma* or *FWHM* of resolution in *Qz*  
 
 for columns 3 and 4 the default is *sigma*, the standard deviation of a Gaussian distribution. 
-(While the specification allows for error columns of different type (FWHM or non-gaussian), this descritption is to be preferred.)
+(While the specification allows for error columns of different type (FWHM or non-gaussian), this description is to be preferred.)
 
 It's **strongly advised** that the third and fourth columns are provided. 
 If these are unknown then a value of 'nan' can be used in the data array. 
