@@ -18,7 +18,7 @@ Maximilian Skoda
 and
 Jochen Stahn.
 
-last modified: 2023-05-04
+last modified: 2023-06-16
 
 ---
 
@@ -33,6 +33,16 @@ contribute (critics, suggestions, hints, ...).
 ---
 
 ## general specifications
+
+### data organisation
+
+The data file consists of 3 kinds of content blocks:
+
+- the first line containing version and language information
+- a block with meta data and column description
+- a data array with the reduced data and optional information
+
+For several data sets in one file the later two are repeated.
 
 ### file extension
 
@@ -137,6 +147,17 @@ sample:
    name: Ni1000 
    # there is a scratch on the surface!
 ```
+
+### look-up order for physical quantities
+
+Some information might be provided as a column in the data block, in the header or in both places. In the latter case the 
+information provided in the data block has higher priority for data reduction or analysis. 
+
+A condition for this to work is that the *key* in the header is the same as the `physical_quantity` *value* in the column description. 
+E.g.  
+`data_source.measurement.instrument_settings.` **`incident_angle`**   
+and   
+`columns.?.physical_quantity:` **`incident_angle`**
 
 ---
 
@@ -264,15 +285,19 @@ In case there are several temperatures:
     
 and so on for `pressure`, `surface_pressure`, `pH`, ....
 
+- `xxx.movement` steps or continous
+
 ```
 #    measurement: 
 #         instrument_settings:  
 #             incident_angle:  
 #                 magnitude:    # or  min/max
-#                 unit:        
+#                 unit:         one of 'rad' or 'deg'
+#                 offset:       * to indicate a discrepancy between 'target' positions and actual (fitted) values
+#                 movement:     * one of 'steps' or 'continuous' 
 #             wavelength:
 #                 magnitude:    # or  min/max
-#                 unit:       
+#                 unit:         one of 'nm' or 'angstrom'
 #             polarization:     for neutrons one of  unpolarized / po / mo / op / om / pp / pm / mp / mm  / vector
 #                               for x-rays one of ...  (to be defined in later specification)
 #             configuration:    * half / full polarized | liquid_surface | ....   free text
@@ -345,31 +370,32 @@ The `comment` is used to give some more information.
 
 ### column description
 
-This data representation is meant to store the physical quantity *R* as a function of normal momentum transfer *Qz*. 
+This data representation is meant to store the physical quantity *reflectivity* (*R*) as a function of the
+*normal momentum transfer* (*Qz*). 
 Together with the related information about the error of *R* and the resolution of *Qz* this leads to the defined 
 leading 4 columns of the data set. 
 I.e.
 
-1. *Qz* (normal momentum transfer) with unit (`1/angstrom` or `1/nm`)
-2. *R* with unit 1
+1. `normal_momentum_transfer` with unit `1/angstrom` or `1/nm` and label `Qz`
+2. `reflectivity` with unit 1 and label `R`  
    (fuzzy use of the term *reflectivity* since the data might still be affected by resolution, background, etc, and might not be normalized)
-4. *sigma* of *R* 
-5. *sigma* or *FWHM* of resolution in *Qz*  
+4. error of the `reflectivity`
+5. resolution of the `normal_momentum_transfer` 
 
 for columns 3 and 4 the default is *sigma*, the standard deviation of a Gaussian distribution. 
 (While the specification allows for error columns of different type (FWHM or non-gaussian), this description is to be preferred.)
 
 It's **strongly advised** that the third and fourth columns are provided. 
-If these are unknown then a value of 'nan' can be used in the data array. 
+If these are unknown then a value of `nan` can be used in the data array. 
 The error columns always have the same units as the corresponding data columns.
 
 ```
 # columns:
 #      - name:               Qz
 #        unit:               1/angstrom 
-#        physical_quantity:  * wavevector transfer
+#        physical_quantity:  normal_wavevector_transfer
 #      - name:               R
-#        physical_quantity:  * reflectivity
+#        physical_quantity:  reflectivity
 #      - error_of:           R
 #        error_type:         * uncertainty               
 #        distribution:       * gaussian   
@@ -392,7 +418,7 @@ with
 Further columns can be of any type, content or order,
 but **always** with description and unit. 
 These further columns correspond to the fifth column onwards, meaning that the third and fourth columns must be specified 
-(in the worst case filled with `none`).
+(in the worst case filled with `nan`).
 
 ```
 #     - name:               alpha_i
@@ -406,6 +432,36 @@ These further columns correspond to the fifth column onwards, meaning that the t
 #       unit:               angstrom 
 #       physical_quantity:  wavelength
 ```
+
+#### canonical names for physical quantities
+
+In addition to the mentioned 2 essential physical quantities `normal_momentum_transfer` and 
+`reflectivity` and their respective errors it is recommended to 
+use the following terms if applicable:
+
+| *physical quantity*  | *self-explanatory key* | *label* |
+|:---|:---|:---|
+| *incident angle*     | `incident_angle`       | `alpha_i` |
+| *final angle*        | `final_angle`          | `alpha_f` |
+| *scattering angle*   | `scattering_angle`     | `two_theta` |
+| *in-plane angle*     | `in_plane_angle`       | `phi_f` |
+| | | |
+| *photon energy*      | `photon_energy`        | `E` |
+| *wavelength*         | `wavelength`           | `lambda` |
+| | | |
+| *absolute counts*    | `counts`               | `cnts` |
+| *attenuation factor* | `attenuation_factor`   | |
+| *scale factor*       | `scale_factor`         | |
+| *counting time*      | `counting_time`        | `tme` |
+| | | |
+| *beam divergence*    | `beam_divergence`      | |
+| | | |
+| *intensity*          | `intensity`            | |
+
+
+
+ 
+### multiple data sets
 
 If there are multiple data sets in one file (see below), each starts with an identifier and a line looking like:
 
