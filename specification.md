@@ -285,13 +285,15 @@ In case there are several temperatures:
     
 and so on for `pressure`, `surface_pressure`, `pH`, ....
 
-- `xxx.movement` steps or continous
-
 ```
 #    measurement: 
 #         instrument_settings:  
-#             incident_angle:  
-#                 magnitude:    # or  min/max
+#             incident_angle:   various options: one value = `magnitude`, range = `range.min`...`range.max` 
+#                 magnitude:    
+#                 range:
+#                    min:
+#                    max:
+#                    individual_magnitudes:     for stitched data, can most likely not be used for analysis
 #                 unit:         one of 'rad' or 'deg'
 #                 offset:       * to indicate a discrepancy between 'target' positions and actual (fitted) values
 #                 movement:     * one of 'steps' or 'continuous' 
@@ -437,28 +439,26 @@ These further columns correspond to the fifth column onwards, meaning that the t
 
 In addition to the mentioned 2 essential physical quantities `normal_momentum_transfer` and 
 `reflectivity` and their respective errors it is recommended to 
-use the following terms if applicable:
+use the following *self-explanatory keys* if applicable (the *labels* are just suggestions):
 
-| *physical quantity*  | *self-explanatory key* | *label* |
-|:---|:---|:---|
-| *incident angle*     | `incident_angle`       | `alpha_i` |
-| *final angle*        | `final_angle`          | `alpha_f` |
-| *scattering angle*   | `scattering_angle`     | `two_theta` |
-| *in-plane angle*     | `in_plane_angle`       | `phi_f` |
+| *physical quantity*  | *self-explanatory key* | *label* | *comment* |
+|:---|:---|:---|:---|
+| *incident angle*     | `incident_angle`       | `alpha_i`   | |
+| *final angle*        | `final_angle`          | `alpha_f`   | |
+| *scattering angle*   | `scattering_angle`     | `two_theta` | |
+| *in-plane angle*     | `in_plane_angle`       | `phi_f`     | |
 | | | |
-| *photon energy*      | `photon_energy`        | `E` |
-| *wavelength*         | `wavelength`           | `lambda` |
+| *photon energy*      | `photon_energy`        | `E`         | |
+| *wavelength*         | `wavelength`           | `lambda`    | |
 | | | |
-| *absolute counts*    | `counts`               | `cnts` |
-| *attenuation factor* | `attenuation_factor`   | |
-| *scale factor*       | `scale_factor`         | |
-| *counting time*      | `counting_time`        | `tme` |
+| *absolute counts*    | `counts`               | `cnts`      | |
+| *attenuation factor* | `attenuation_factor`   | `a`         | $a \le 1$ |
+| *scale factor*       | `scale_factor`         | `s`         | $R = s I$ |
+| *counting time*      | `counting_time`        | `tme`       | |
 | | | |
-| *beam divergence*    | `beam_divergence`      | |
+| *beam divergence*    | `beam_divergence`      | `D_alpha_i` | |
 | | | |
-| *intensity*          | `intensity`            | |
-
-
+| *intensity*          | `intensity`            | `I`         | |
 
  
 ### multiple data sets
@@ -562,7 +562,5 @@ There are no rules yet for a footer. Thus creating one might collide with future
 
 see also the [discussion page](https://www.reflectometry.org/file_format/specs_discussion)
 
-- Prepare an  example .ort file for a lax x-ray source as basis for negitiantions with manufacturers. 
-- *Reserve* keywords for planned future use. E.g. give a warning when used....
+- Prepare an  example .ort file for a lab x-ray source as basis for negotiantions with manufacturers. 
 - Add structured information about the sample history. 
-- How to report on the individual settings for *stitched* data sets?
