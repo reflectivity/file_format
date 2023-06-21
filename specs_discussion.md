@@ -132,49 +132,9 @@ The *physical quantity* is composed of a **numerical magnitude** times **unit**.
 > $\alpha_i = 2.3 \cdot \mathrm{deg}$
 
 #### what we do wrong or inconsistent
-
-- In the columns section, we used *dimension* instead of *physical quantity*. This is certainly wrong and we will change it.
- 
-In the meantime, the key `dimension` has been changed to `physical_quantity`.
  
 - For the column *name* we use the *symbol* (R, Qz, alpha_i, ...) rather than the *physical quantity*. But in the header above we use the latter as key words. Thus if the analysis software searches for example for information about the *incident angle*, it has to look in various places (this is intended) for different keys. A solution might be that the software searches for standardised `physical_quantity` entries in the column description which match the keys in the header. 
 
-
- 
-## reserve key words 
-
-suggestions for physical quantities:
-
-| *physical quantity* | *symbol* | *self-explanatory key* |
-|:---|:---|:---|
-| *incident angle* | `alpha_i` | `incident_angle` |
-| *final angle* | `alpha_f` | `final_angle` |
-| *scattering angle* | `two_theta` | `scattering_angle` |
-| *in-plane angle* | `phi_f` | `in_plane_angle` |
-| | | |
-| *photon energy* | `E` ? | `photon_energy`|
-| *wavelength* | `lambda` | `wavelength` |
-| | | |
-| *absolute counts* | `cnts` ? | `counts`, `events` |
-| *attenuation factor* | `att` ? | `attenuation_factor` |
-| *scaling factor* | `s` ? | `scaling_factor` |
-| *counting time* | `t`, `tme` ? | `counting_time` |
-| | | |
-| *beam divergence* | `Delta_theta` `Delta_alpha_i` ? | `beam_divergence` |
-| | | |
-| *intensity* | `I` | `intensity` |
-
-
-other suggestions:
-
-- `xxx.offset` of a quantity with respect to the value reported in the raw file. 
-- `scan_type` steps or continous
- 
-**item 4**: Do we *reserve* key words for future use? 
- 
-**item 5**: How are key words reserved? Are there any warnings?
- 
-**item 6**: Which key words should we reserve?
 
 ## stitched data
 
@@ -274,3 +234,26 @@ it became obvious that the present dictionary misses several entries.
 - The `.ort` specs clearly separate data origin and data reduction. For lab reflectometers it often the same software for 
   instrument control and reduction.
 - Information about the facility, the owner and the sample is often missing.
+ 
+## new column type: `flag`
+ 
+suggestd by Artur, draft by Jochen
+ 
+``` YAML
+# columns:
+...
+#    - flag_is:
+#      0: electric field off
+#      1: electric field on, positive
+#      2: electric field on, negative
+```
+
+or 
+ 
+``` YAML
+# columns:
+...
+#    - flag_is:
+#      0: ignored for fitting
+#      1: used for fitting
+```
