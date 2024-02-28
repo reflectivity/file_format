@@ -112,7 +112,7 @@ Errors or uncertainties of a single physical quantity can be given in the form
         value_is:     sigma (default) | FWHM
 ```
 
-The respective unit of the error is taken from the quantity the error referes to.  
+The respective unit of the error is taken from the quantity the error refers to.  
 
 Example:
 
@@ -415,7 +415,7 @@ with
 - `errortype:` one of `uncertainty` (default) [one random value chosen from distribution] or `resolution` [spread over distribution]
 - `distribution:` one of `gaussian` (default), `uniform`, `triangular`, `rectangular` or `lorentzian` 
 - `value_is`: one of `sigma` (default) or `FWHM`
-- the respective unit of the error is taken from the quantity the error referes to
+- the respective unit of the error is taken from the quantity the error refers to
 
 Further columns can be of any type, content or order,
 but **always** with description and unit. 
