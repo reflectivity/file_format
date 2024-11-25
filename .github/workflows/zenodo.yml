@@ -1,28 +1,36 @@
-name: Make release
+name: Automated Zenodo release
 
 on:
   schedule:
     - cron: '0 0 * * 0'
 
+  workflow_dispatch:
+
 jobs:
-  build:
+  release:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Get time
-        id: time
-        uses: nanzm/get-time-action@v1.0
+      - uses: actions/checkout@v4
+
+      - name: Set release date
+        id: date
+        run: |
+          echo "RELEASE_DATE=$(date '+%Y-%m-%d-%H-%M-%S')" >> $GITHUB_ENV
+
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/github-script@v7
         with:
-          tag_name: ${{ steps.time.outputs.time }}
-          release_name: Release ${{ steps.time.outputs.time }}
-          body: |
-            Automated release bot to push zenodo
-          draft: false
-          prerelease: false
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const release = await github.rest.repos.createRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag_name: process.env.RELEASE_DATE,
+              name: `Release ${process.env.RELEASE_DATE}`,
+              body: 'Automated release bot to push zenodo',
+              draft: false,
+              prerelease: false
+            });
+
+            console.log(`Release created successfully: ${release.data.html_url}`);
